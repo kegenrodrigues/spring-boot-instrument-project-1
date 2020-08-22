@@ -24,12 +24,15 @@ public class InstrumentTrackerSystemApplication{
 	    //AppPrincipalFrame appFrame = ctx.getBean(AppPrincipalFrame.class);
 	
 	    
-	    Login theLogin = ctx.getBean(Login.class);
-	    theLogin.makeLoginPage();
+//	    Login theLogin = ctx.getBean(Login.class);
+//	    theLogin.makeLoginPage();
 		
 		EmployeeServiceImpl theEmployeeServiceImpl = ctx.getBean(EmployeeServiceImpl.class);
 		
 		System.out.println(theEmployeeServiceImpl.findAll());
+		System.out.println(theEmployeeServiceImpl.findById("E101").getEmpID());
+		
+		
 //		  var ctx = new SpringApplicationBuilder(SwingApp.class)
 //	                .headless(false).run(args);
 	}	

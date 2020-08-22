@@ -28,25 +28,51 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		
 		@SuppressWarnings("unchecked")
 		List<EmployeeEntity> employees = (List<EmployeeEntity>)theQuery.getResultList();
-		System.out.println(employees);
 		return employees;
 	}
 
 	@Override
 	public EmployeeEntity findById(String empId) {
+		EmployeeEntity employee = new EmployeeEntity();
+//		Session currentSession = entityManager.unwrap(Session.class);
+//		EmployeeEntity employee = currentSession.get(EmployeeEntity.class, empId);
+//		System.out.println(employee);
+//		return employee;
+//		EmployeeEntity employee = entityManager.find(EmployeeEntity.class, empId);
+//		System.out.println(employee);
+//		return employee;
+		
 		// TODO Auto-generated method stub
-		return null;
+		Query theQuery = entityManager.createNativeQuery("select empId from employee where empID =?1");
+		theQuery.setParameter(1, "E101");
+//		System.out.println(theQuery.getFirstResult());
+//can use[E101]		System.out.println(theQuery.getResultList());
+//		System.out.println(theQuery.getResultStream());
+//can use E101	System.out.println(theQuery.getSingleResult());
+//		System.out.println(theQuery.getParameters());
+//		
+//		System.out.println(theQuery.getClass()); 
+		Object dEmpId = (Object)theQuery.getSingleResult();
+		String result = dEmpId.toString();
+		employee.setEmpID(result);
+		return employee;
 	}
 
 	@Override
 	public void save(EmployeeEntity theEmployee) {
 		// TODO Auto-generated method stub
-
+		
+		EmployeeEntity dbEmployee = entityManager.merge(theEmployee);
+		theEmployee.setEmpID(dbEmployee.getEmpID());
 	}
 
 	@Override
 	public void deleteById(String empId) {
 		// TODO Auto-generated method stub
+		
+		Query theQuery = entityManager.createNativeQuery("delete from employee where empId=?1");
+		theQuery.setParameter(1, empId);
+		theQuery.executeUpdate();
 
 	}
 

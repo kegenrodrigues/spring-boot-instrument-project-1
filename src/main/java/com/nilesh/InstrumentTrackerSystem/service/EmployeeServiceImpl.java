@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.repository.EmployeeDAOImpl;
@@ -27,7 +28,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public EmployeeEntity findById(String empId) {
 		// TODO Auto-generated method stub
-		return null;
+		return employeeDAOImpl.findById(empId);
 	}
 
 	@Override
