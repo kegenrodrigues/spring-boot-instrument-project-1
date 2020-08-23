@@ -32,15 +32,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	@Transactional
 	public void save(EmployeeEntity theEmployee) {
 		// TODO Auto-generated method stub
+		employeeDAOImpl.save(theEmployee);
 
 	}
 
 	@Override
+	@Transactional
 	public void deleteById(String empId) {
 		// TODO Auto-generated method stub
-
+		employeeDAOImpl.deleteById(empId);
 	}
 
 	public List<String> modifiedFindAll() {

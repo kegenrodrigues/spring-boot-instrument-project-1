@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "instLogger")
@@ -19,6 +21,36 @@ public class InstLoggerEntity {
 	@Column(name = "instId")
 	private String instId;
 	
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "inTime")
+	private java.util.Date inTime;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "outTime")
+	private java.util.Date outTime;
+	 
+	@Column(name = "entryStatus")
+	private Boolean entryStatus;
+	
+	public Boolean getEntryStatus() {
+		return entryStatus;
+	}
+	public void setEntryStatus(Boolean entryStatus) {
+		this.entryStatus = entryStatus;
+	}
+	public java.util.Date getInTime() {
+		return inTime;
+	}
+	public void setInTime(java.util.Date inTime) {
+		this.inTime = inTime;
+	}
+	public java.util.Date getOutTime() {
+		return outTime;
+	}
+	public void setOutTime(java.util.Date outTime) {
+		this.outTime = outTime;
+	}
 	public String getInstLoggerId() {
 		return instLoggerId;
 	}

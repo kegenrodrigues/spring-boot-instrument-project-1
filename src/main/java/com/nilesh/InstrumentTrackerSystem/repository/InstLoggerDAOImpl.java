@@ -33,7 +33,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public InstLoggerEntity findById(String empId) {
+	public InstLoggerEntity findById(String instLoggerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -45,7 +45,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public void deleteById(String empId) {
+	public void deleteById(String instLoggerId) {
 		// TODO Auto-generated method stub
 
 	}
