@@ -1,5 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -76,6 +78,15 @@ public class InstLoggerEntity {
 		this.instId = instId;
 	}
 	
+	
+	public InstLoggerEntity(String empId, String instId, Date inTime, Date outTime, Boolean entryStatus) {
+		super();
+		this.empId = empId;
+		this.instId = instId;
+		this.inTime = inTime;
+		this.outTime = outTime;
+		this.entryStatus = entryStatus;
+	}
 	public InstLoggerEntity() {
 	
 	}

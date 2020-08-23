@@ -9,4 +9,5 @@ public interface InstLoggerService {
 	public InstLoggerEntity findById(String instLoggerId);
 	public void save(InstLoggerEntity theInstLogger);
 	public void deleteById(String instLoggerId);
+	public List<InstLoggerEntity> findByPair(String empId, String instId);
 }

@@ -39,4 +39,10 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 
 	}
 
+	@Override
+	public List<InstLoggerEntity> findByPair(String empId, String instId) {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.findByPair(empId, instId);
+	}
+
 }

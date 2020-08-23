@@ -43,7 +43,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 //		return employee;
 		
 		// TODO Auto-generated method stub
-		Query theQuery = entityManager.createNativeQuery("select empId from employee where empID =?1");
+		Query theQuery = entityManager.createNativeQuery("select empId from employee where empId =?1");
 		theQuery.setParameter(1, "E101");
 //		System.out.println(theQuery.getFirstResult());
 //can use[E101]		System.out.println(theQuery.getResultList());
@@ -54,7 +54,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 //		System.out.println(theQuery.getClass()); 
 		Object dEmpId = (Object)theQuery.getSingleResult();
 		String result = dEmpId.toString();
-		employee.setEmpID(result);
+		employee.setEmpId(result);
 		return employee;
 	}
 
@@ -63,7 +63,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 		// TODO Auto-generated method stub
 		
 		EmployeeEntity dbEmployee = entityManager.merge(theEmployee);
-		theEmployee.setEmpID(dbEmployee.getEmpID());
+		theEmployee.setEmpId(dbEmployee.getEmpId());
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -48,6 +49,27 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	public void deleteById(String instLoggerId) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<InstLoggerEntity> findByPair(String empId, String instId) {
+		
+		Query theQuery = entityManager.createNativeQuery("select instLoggerId from instLogger where empId = ?1 and instId = ?2",InstLoggerEntity.class);
+		theQuery.setParameter(1, "empId");
+		theQuery.setParameter(2, "instId");
+		
+		@SuppressWarnings("unchecked")
+		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)theQuery.getResultList();
+		System.out.println(instLogger.get(0).getInstLoggerId());
+		
+		return instLogger;
+		//return null;
+	}
+
+	@Override
+	public List<InstLoggerEntity> findAll(Date startTime, Date inTime, Date timeNow, String empId, String instId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
