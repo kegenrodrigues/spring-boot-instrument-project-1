@@ -8,6 +8,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 //import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
 
@@ -39,8 +40,10 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 
 	@Override
 	public void save(InstrumentEntity theInstrument) {
-		// TODO Auto-generated method stub
+		
 
+		InstrumentEntity dbInstrument = entityManager.merge(theInstrument);
+		theInstrument.setInstId(dbInstrument.getInstId());
 	}
 
 	@Override

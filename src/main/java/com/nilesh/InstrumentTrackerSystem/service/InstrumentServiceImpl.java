@@ -28,8 +28,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 
 	@Override
 	public void save(InstrumentEntity theInstrument) {
-		// TODO Auto-generated method stub
-
+		
+		theInstrumentDAOImpl.save(theInstrument);
+		
 	}
 
 	@Override

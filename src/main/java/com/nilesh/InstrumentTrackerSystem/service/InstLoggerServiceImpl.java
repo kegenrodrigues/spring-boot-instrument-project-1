@@ -29,7 +29,7 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 
 	@Override
 	public void save(InstLoggerEntity theInstLogger) {
-		// TODO Auto-generated method stub
+		theInstLoggerDAOImpl.save(theInstLogger);
 
 	}
 

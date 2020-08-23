@@ -9,6 +9,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 
@@ -41,7 +42,9 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 	@Override
 	public void save(InstLoggerEntity theInstLogger) {
-		// TODO Auto-generated method stub
+
+		InstLoggerEntity dbInstLogger = entityManager.merge(theInstLogger);
+		theInstLogger.setInstLoggerId(dbInstLogger.getInstId());
 
 	}
 

@@ -48,8 +48,8 @@ public class InstrumentTrackerSystemApplication{
 		InstLoggerEntity entry1 = new InstLoggerEntity("E101", "I104",inTime, outTime, true);
 	
 		theEmployeeServiceImpl.save(employee1);
-//		theInstrumentServiceImpl.save(instrument1);
-//		theInstLoggerServiceImpl.save(entry1);
+		theInstrumentServiceImpl.save(instrument1);
+		theInstLoggerServiceImpl.save(entry1);
 
 	}	
 }
