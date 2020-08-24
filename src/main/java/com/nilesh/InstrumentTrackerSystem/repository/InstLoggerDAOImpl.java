@@ -57,9 +57,9 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	@Override
 	public List<InstLoggerEntity> findByPair(String empId, String instId) {
 		
-		Query theQuery = entityManager.createNativeQuery("select instLoggerId from instLogger where empId = ?1 and instId = ?2",InstLoggerEntity.class);
-		theQuery.setParameter(1, "empId");
-		theQuery.setParameter(2, "instId");
+		Query theQuery = entityManager.createNativeQuery("select * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
+		theQuery.setParameter(1, empId);
+		theQuery.setParameter(2, instId);
 		
 		@SuppressWarnings("unchecked")
 		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)theQuery.getResultList();
@@ -76,3 +76,24 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 }
+
+
+//public List<MovieObject> getMovieByTitle(EntityManager entityManager,String title) {
+//
+//    String queryStr = "SELECT movieId, title, genres FROM movies where title like = ?1";
+//    try {
+//        Query query = entityManager.createNativeQuery(queryStr);
+//        query.setParameter(1, title);
+//
+//        List<Object[]> objectList = query.getResultList();
+//
+//        List<MovieObject> result = new ArrayList<>();
+//        for (Object[] row : objectList) {
+//            result.add(new MovieObject(row));
+//        }
+//        return result;
+//    } catch (Exception e) {
+//        e.printStackTrace();
+//        throw e;
+//    }
+//}

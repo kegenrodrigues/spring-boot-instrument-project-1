@@ -18,25 +18,13 @@ import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
 
 @SpringBootApplication
 public class InstrumentTrackerSystemApplication{
-//	
-//	@Autowired
-//	EmployeeDAOImpl employeeDAOImpl;
-//	
-//	@Autowired
-//	EmployeeServiceImpl employeeServiceImpl;
-//	
-//	@Autowired
-//	InstLoggerServiceImpl instLoggerServiceImpl;
-//	
+
 	public static void main(String[] args) {
 		Calendar inTime = Calendar.getInstance();
 		inTime.set(2020, 8, 24, 5, 48, 58);
 		
 		Calendar outTime = Calendar.getInstance();
 		outTime.set(2020, 8, 26, 3, 45, 34);
-		
-		//Date inTime = new Date();
-		//Date outTime = new Date();
 
 	    ConfigurableApplicationContext ctx = new SpringApplicationBuilder(InstrumentTrackerSystemApplication.class).headless(false).run(args);
 	    
@@ -52,18 +40,20 @@ public class InstrumentTrackerSystemApplication{
 			
 		InstLoggerEntity entry1 = new InstLoggerEntity("E101", "I104",inTime, outTime, true);
 	
-		theEmployeeServiceImpl.save(employee1);
-		theInstrumentServiceImpl.save(instrument1);
-		theInstLoggerServiceImpl.save(entry1);
-
+//		theEmployeeServiceImpl.save(employee1);
+//		theInstrumentServiceImpl.save(instrument1);
+//		theInstLoggerServiceImpl.save(entry1);
+//		
+		System.out.println(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getOutTime().getTime());
+		if(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getEntryStatus()==true){
+			System.out.println("Yes its 1");
+		}
+		else {
+			System.out.println("Its false");
+		}
+		
 	}	
 }
-
-
-
-
-
-
 
 //##############//	    Login theLogin = ctx.getBean(Login.class);
 //##############//		theLogin.makeLoginPage();

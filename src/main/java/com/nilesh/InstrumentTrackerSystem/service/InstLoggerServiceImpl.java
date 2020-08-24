@@ -50,5 +50,6 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 		// TODO Auto-generated method stub
 		return theInstLoggerDAOImpl.findByPair(empId, instId);
 	}
+	
 
 }
