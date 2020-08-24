@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,10 +29,14 @@ public class InstrumentTrackerSystemApplication{
 	InstLoggerServiceImpl instLoggerServiceImpl;
 	
 	public static void main(String[] args) {
+		Calendar inTime = Calendar.getInstance();
+		inTime.set(2020, 8, 24, 5, 48, 58);
 		
+		Calendar outTime = Calendar.getInstance();
+		outTime.set(2020, 8, 26, 3, 45, 34);
 		
-		Date inTime = new Date();
-		Date outTime = new Date();
+		//Date inTime = new Date();
+		//Date outTime = new Date();
 
 	    ConfigurableApplicationContext ctx = new SpringApplicationBuilder(InstrumentTrackerSystemApplication.class).headless(false).run(args);
 	    

@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -27,13 +28,15 @@ public class InstLoggerEntity {
 	private String instId;
 	
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "inTime")
-	private java.util.Date inTime;
+	//private java.util.Date inTime;
+	private Calendar inTime;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "outTime")
-	private java.util.Date outTime;
+	//private java.util.Date outTime;
+	private Calendar outTime;
 	 
 	@Column(name = "entryStatus")
 	private Boolean entryStatus;
@@ -44,20 +47,33 @@ public class InstLoggerEntity {
 	public void setEntryStatus(Boolean entryStatus) {
 		this.entryStatus = entryStatus;
 	}
-	public java.util.Date getInTime() {
-		return inTime;
-	}
-	public void setInTime(java.util.Date inTime) {
-		this.inTime = inTime;
-	}
-	public java.util.Date getOutTime() {
-		return outTime;
-	}
-	public void setOutTime(java.util.Date outTime) {
-		this.outTime = outTime;
-	}
+//	public java.util.Date getInTime() {
+//		return inTime;
+//	}
+//	public void setInTime(java.util.Date inTime) {
+//		this.inTime = inTime;
+//	}
+//	public java.util.Date getOutTime() {
+//		return outTime;
+//	}
+//	public void setOutTime(java.util.Date outTime) {
+//		this.outTime = outTime;
+//	}
+	
 	public Long getInstLoggerId() {
 		return instLoggerId;
+	}
+	public Calendar getInTime() {
+		return inTime;
+	}
+	public void setInTime(Calendar inTime) {
+		this.inTime = inTime;
+	}
+	public Calendar getOutTime() {
+		return outTime;
+	}
+	public void setOutTime(Calendar outTime) {
+		this.outTime = outTime;
 	}
 	public void setInstLoggerId(Long instLoggerId) {
 		this.instLoggerId = instLoggerId;
@@ -82,7 +98,7 @@ public class InstLoggerEntity {
 	}
 	
 	
-	public InstLoggerEntity(String empId, String instId, Date inTime, Date outTime, Boolean entryStatus) {
+	public InstLoggerEntity(String empId, String instId, Calendar inTime, Calendar outTime, Boolean entryStatus) {
 		super();
 		this.empId = empId;
 		this.instId = instId;
