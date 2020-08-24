@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class EmployeeEntity {
 
 	@Id
-	@Column(name = "empID")//Do not change to empId
+	@Column(name = "empId")//Do not change
 	public String empId;
 
 	public String getEmpId() {

@@ -35,7 +35,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public InstLoggerEntity findById(String instLoggerId) {
+	public InstLoggerEntity findById(Long instLoggerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -44,12 +44,12 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	public void save(InstLoggerEntity theInstLogger) {
 
 		InstLoggerEntity dbInstLogger = entityManager.merge(theInstLogger);
-		theInstLogger.setInstLoggerId(dbInstLogger.getInstId());
+		theInstLogger.setInstLoggerId(dbInstLogger.getInstLoggerId());
 
 	}
 
 	@Override
-	public void deleteById(String instLoggerId) {
+	public void deleteById(Long instLoggerId) {
 		// TODO Auto-generated method stub
 
 	}

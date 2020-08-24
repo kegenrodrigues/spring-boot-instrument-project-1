@@ -10,7 +10,7 @@ import javax.persistence.Table;
 public class InstrumentEntity {
 
 	@Id
-	@Column(name = "instId")
+	@Column(name = "instId")//do not change
 	public String instId;
 
 	public String getInstId() {
