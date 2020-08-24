@@ -28,12 +28,12 @@ public class InstLoggerEntity {
 	private String instId;
 	
 	
-	//@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP) // Check if using this you can retrive time as well from the db
 	@Column(name = "inTime")
 	//private java.util.Date inTime;
 	private Calendar inTime;
 	
-	//@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP) //Check if using this you can retrive time as well from the db
 	@Column(name = "outTime")
 	//private java.util.Date outTime;
 	private Calendar outTime;

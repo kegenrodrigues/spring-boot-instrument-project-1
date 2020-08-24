@@ -18,16 +18,16 @@ import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
 
 @SpringBootApplication
 public class InstrumentTrackerSystemApplication{
-	
-	@Autowired
-	EmployeeDAOImpl employeeDAOImpl;
-	
-	@Autowired
-	EmployeeServiceImpl employeeServiceImpl;
-	
-	@Autowired
-	InstLoggerServiceImpl instLoggerServiceImpl;
-	
+//	
+//	@Autowired
+//	EmployeeDAOImpl employeeDAOImpl;
+//	
+//	@Autowired
+//	EmployeeServiceImpl employeeServiceImpl;
+//	
+//	@Autowired
+//	InstLoggerServiceImpl instLoggerServiceImpl;
+//	
 	public static void main(String[] args) {
 		Calendar inTime = Calendar.getInstance();
 		inTime.set(2020, 8, 24, 5, 48, 58);

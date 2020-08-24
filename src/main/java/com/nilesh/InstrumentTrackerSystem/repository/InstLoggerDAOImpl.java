@@ -1,6 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -70,7 +70,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public List<InstLoggerEntity> findAll(Date startTime, Date inTime, Date timeNow, String empId, String instId) {
+	public List<InstLoggerEntity> findAll(Calendar startTime, Calendar inTime, Calendar timeNow, String empId, String instId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
