@@ -10,15 +10,15 @@ import javax.persistence.Table;
 public class EmployeeEntity {
 
 	@Id
-	@Column(name = "empID")
-	public String empID;
+	@Column(name = "empId")//Do not change
+	public String empId;
 
-	public String getEmpID() {
-		return empID;
+	public String getEmpId() {
+		return empId;
 	}
 
-	public void setEmpID(String empID) {
-		this.empID = empID;
+	public void setEmpId(String empId) {
+		this.empId = empId;
 	}
 
 	public EmployeeEntity() {

@@ -9,6 +9,6 @@ public interface EmployeeService {
 	public List<EmployeeEntity> findAll();
 	public EmployeeEntity findById(String empId);
 	public void save(EmployeeEntity theEmployee);
-	public void deleteById(String empId);
+	public void deleteById(String empId);	
 	
 }

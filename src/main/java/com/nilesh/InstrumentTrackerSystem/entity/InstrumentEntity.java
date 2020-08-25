@@ -10,15 +10,15 @@ import javax.persistence.Table;
 public class InstrumentEntity {
 
 	@Id
-	@Column(name = "instID")
-	public String instID;
+	@Column(name = "instId")//do not change
+	public String instId;
 
-	public String getInstID() {
-		return instID;
+	public String getInstId() {
+		return instId;
 	}
 
-	public void setEmpID(String empID) {
-		this.instID = empID;
+	public void setInstId(String empId) {
+		this.instId = empId;
 	}
 
 	public InstrumentEntity() {

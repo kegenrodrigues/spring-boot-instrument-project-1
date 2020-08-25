@@ -19,6 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	List<String> stringList = new ArrayList<>();
 	
 	@Override
+	@Transactional
 	public List<EmployeeEntity> findAll() {
 		// TODO Auto-generated method stub
 	
@@ -26,6 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
+	@Transactional
 	public EmployeeEntity findById(String empId) {
 		// TODO Auto-generated method stub
 		return employeeDAOImpl.findById(empId);
@@ -46,6 +48,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeDAOImpl.deleteById(empId);
 	}
 
+	@Transactional
 	public List<String> modifiedFindAll() {
 		stringList.add("Hello Bro");
 		stringList.add("Whatsup");

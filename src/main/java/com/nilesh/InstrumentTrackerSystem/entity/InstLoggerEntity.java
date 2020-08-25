@@ -1,19 +1,25 @@
 package com.nilesh.InstrumentTrackerSystem.entity;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "instLogger")
+@Table(name = "instlogger")//Let the name be instlogger
 public class InstLoggerEntity {
 
 	@Id
-	@Column(name = "instLoggerId")
-	public String instLoggerId;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "instLoggerId")//Do not change
+	public Long instLoggerId;
 	
 	@Column(name = "empId")
 	private String empId;
@@ -22,13 +28,15 @@ public class InstLoggerEntity {
 	private String instId;
 	
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP) // Check if using this you can retrive time as well from the db
 	@Column(name = "inTime")
-	private java.util.Date inTime;
+	//private java.util.Date inTime;
+	private Calendar inTime;
 	
-	@Temporal(TemporalType.TIMESTAMP)
+	//@Temporal(TemporalType.TIMESTAMP) //Check if using this you can retrive time as well from the db
 	@Column(name = "outTime")
-	private java.util.Date outTime;
+	//private java.util.Date outTime;
+	private Calendar outTime;
 	 
 	@Column(name = "entryStatus")
 	private Boolean entryStatus;
@@ -39,22 +47,35 @@ public class InstLoggerEntity {
 	public void setEntryStatus(Boolean entryStatus) {
 		this.entryStatus = entryStatus;
 	}
-	public java.util.Date getInTime() {
-		return inTime;
-	}
-	public void setInTime(java.util.Date inTime) {
-		this.inTime = inTime;
-	}
-	public java.util.Date getOutTime() {
-		return outTime;
-	}
-	public void setOutTime(java.util.Date outTime) {
-		this.outTime = outTime;
-	}
-	public String getInstLoggerId() {
+//	public java.util.Date getInTime() {
+//		return inTime;
+//	}
+//	public void setInTime(java.util.Date inTime) {
+//		this.inTime = inTime;
+//	}
+//	public java.util.Date getOutTime() {
+//		return outTime;
+//	}
+//	public void setOutTime(java.util.Date outTime) {
+//		this.outTime = outTime;
+//	}
+	
+	public Long getInstLoggerId() {
 		return instLoggerId;
 	}
-	public void setInstLoggerId(String instLoggerId) {
+	public Calendar getInTime() {
+		return inTime;
+	}
+	public void setInTime(Calendar inTime) {
+		this.inTime = inTime;
+	}
+	public Calendar getOutTime() {
+		return outTime;
+	}
+	public void setOutTime(Calendar outTime) {
+		this.outTime = outTime;
+	}
+	public void setInstLoggerId(Long instLoggerId) {
 		this.instLoggerId = instLoggerId;
 	}
 	public String getEmpId() {
@@ -69,13 +90,22 @@ public class InstLoggerEntity {
 	public void setInstId(String instId) {
 		this.instId = instId;
 	}
-	public InstLoggerEntity(String instLoggerId, String empId, String instId) {
+	public InstLoggerEntity(Long instLoggerId, String empId, String instId) {
 		super();
 		this.instLoggerId = instLoggerId;
 		this.empId = empId;
 		this.instId = instId;
 	}
 	
+	
+	public InstLoggerEntity(String empId, String instId, Calendar inTime, Calendar outTime, Boolean entryStatus) {
+		super();
+		this.empId = empId;
+		this.instId = instId;
+		this.inTime = inTime;
+		this.outTime = outTime;
+		this.entryStatus = entryStatus;
+	}
 	public InstLoggerEntity() {
 	
 	}
