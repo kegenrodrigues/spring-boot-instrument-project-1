@@ -26,5 +26,8 @@ public class EmployeeEntity {
 	}
 	
 	
+	public EmployeeEntity(String empId) {
+		this.empId = empId;
+	}
 	
 }
