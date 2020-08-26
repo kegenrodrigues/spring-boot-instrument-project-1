@@ -12,4 +12,5 @@ public interface InstLoggerService {
 	public void deleteById(Long instLoggerId);
 	public List<InstLoggerEntity> findByPair(String empId, String instId);
 	public List<InstLoggerEntity> findByPair(Calendar startTime,Calendar inTime,Calendar outTime,Calendar timeNow, String empId,String instId);
+	public List<InstLoggerEntity> insertToTable(Calendar punchingTime,String empId, String instId);
 }

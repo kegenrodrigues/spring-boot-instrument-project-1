@@ -32,6 +32,9 @@ public class InstrumentTrackerSystemApplication{
 		Calendar outTime = Calendar.getInstance();
 		outTime.set(2020, 8, 26, 3, 45, 34);
 		
+		Calendar theTime = Calendar.getInstance();
+		outTime.set(2020, 8, 26, 3, 45, 37);
+		
 		Calendar timeNow = Calendar.getInstance();
 		timeNow.getTime();
 
@@ -42,11 +45,11 @@ public class InstrumentTrackerSystemApplication{
 		InstLoggerServiceImpl theInstLoggerServiceImpl = ctx.getBean(InstLoggerServiceImpl.class);
 
 		
+		System.out.println(theInstLoggerServiceImpl.insertToTable(theTime,"E101", "I104")); 
 		
 		
-		
-	    Login theLogin = ctx.getBean(Login.class);
-		theLogin.makeLoginPage();
+//	    Login theLogin = ctx.getBean(Login.class);
+//		theLogin.makeLoginPage();
 		
 		
 		System.out.println(theEmployeeServiceImpl.findById("E101").getEmpId());

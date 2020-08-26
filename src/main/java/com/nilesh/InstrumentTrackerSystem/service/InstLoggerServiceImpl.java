@@ -59,6 +59,13 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 		// TODO Auto-generated method stub
 		return theInstLoggerDAOImpl.findByPair(startTime, inTime, outTime, timeNow, empId, instId);
 	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> insertToTable(Calendar punchingTime, String empId, String instId) {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.insertToTable(punchingTime, empId, instId);
+	}
 	
 
 }
