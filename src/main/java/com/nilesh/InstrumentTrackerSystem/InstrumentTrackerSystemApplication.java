@@ -58,11 +58,6 @@ public class InstrumentTrackerSystemApplication{
 		
 		
 		
-		
-		
-		
-		
-		
 		EmployeeEntity employee1 = new EmployeeEntity();
 		employee1.setEmpId("E101");
 		
@@ -71,16 +66,17 @@ public class InstrumentTrackerSystemApplication{
 			
 		InstLoggerEntity entry1 = new InstLoggerEntity("E101", "I104",inTime, outTime, true);
 	
-//		theEmployeeServiceImpl.save(employee1);
-//		theInstrumentServiceImpl.save(instrument1);
-//		theInstLoggerServiceImpl.save(entry1);
-//		
-		
-		theInstLoggerServiceImpl.findByPair(startTime, inTime, outTime,timeNow, "E101", "I104");
+		theEmployeeServiceImpl.save(employee1);
+		theInstrumentServiceImpl.save(instrument1);
+		theInstLoggerServiceImpl.save(entry1);
 		
 		
+		//theInstLoggerServiceImpl.findByPair(startTime, inTime, outTime,timeNow, "E101", "I104");
+		theInstLoggerServiceImpl.insertToTable(timeNow,"E101","I104");
 		
-		System.out.println(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getOutTime().getTime());
+		
+		
+		//System.out.println(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getOutTime().getTime());
 //		if(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getEntryStatus()==true){
 //			System.out.println("Yes its 1");
 //		}

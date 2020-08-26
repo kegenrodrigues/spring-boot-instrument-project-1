@@ -106,12 +106,15 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 //		long startTime = System.nanoTime();
 		
+
+		
 		//Method 1
 		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where instLoggerId = (Select MAX(instLoggerId) from instLogger where empId = ?1 and instId = ?2 GROUP BY empId,instId)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
 		theQuery.setParameter(2, instId);
-		System.out.println("**"+theQuery.getSingleResult()); 
 		
+		InstLoggerEntity instLoggerEntity = (InstLoggerEntity) theQuery.getSingleResult();
+		System.out.println(instLoggerEntity.getEmpId());
 		//Method 2
 		//Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where empId = ?1 and instId = ?2 order by instLoggerId DESC");
 		
@@ -126,9 +129,23 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //        System.out.println("Total execution time to fetch result in Java in millis: "
 //               + elapsedTime/1000000);
 
-
 		
+
+		if (instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null){
+			InstLoggerEntity instLogger = new InstLoggerEntity();
+			instLogger.setEntryStatus(true);
+			instLogger.setEmpId(empId);
+			instLogger.setInstId(instId);
+			instLogger.setInTime(punchingTime);
+			instLogger.setOutTime(null);
 	
+			save(instLogger);
+		}
+		else if(instLoggerEntity.getOutTime()==null){
+			Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1");
+			updateQuery.setParameter(1, punchingTime);
+			updateQuery.executeUpdate();
+		}
 		
 //		@SuppressWarnings("unchecked")
 //		List<InstLoggerEntity> instLoggerList = (List<InstLoggerEntity>)theQuery.getResultList();
