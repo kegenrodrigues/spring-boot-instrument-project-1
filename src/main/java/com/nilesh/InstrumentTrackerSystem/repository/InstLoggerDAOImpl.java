@@ -72,24 +72,20 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	public List<InstLoggerEntity> findByPair(Calendar startTime, Calendar inTime, Calendar outTime, Calendar timeNow, String empId, String instId) {
 		// TODO Auto-generated method stub
 		Boolean entryStatus = true;
-		Query theQuery = entityManager.createNativeQuery("select * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
+		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
 		theQuery.setParameter(2, instId);
 		
 		@SuppressWarnings("unchecked")
 		List<InstLoggerEntity> instLoggerList = (List<InstLoggerEntity>)theQuery.getResultList();
-		if (instLoggerList.isEmpty()) {
-			entryStatus = true;
-		}
-		else {
-			
+	
+		if (!instLoggerList.isEmpty()) {
+	
 			System.out.println(instLoggerList.get(0).getInstLoggerId());
 			System.out.println("*******"+instLoggerList.get(0).getEntryStatus());
 			if(instLoggerList.get(0).getEntryStatus()) {
 				System.out.println("in false if condition");
 				entryStatus = false;
-			}else {
-				entryStatus = true;
 			}
 		}
 		InstLoggerEntity instLogger = new InstLoggerEntity();

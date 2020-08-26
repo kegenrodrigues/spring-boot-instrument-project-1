@@ -1,9 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem;
 
 import java.util.Calendar;
-import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -11,7 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
-import com.nilesh.InstrumentTrackerSystem.repository.EmployeeDAOImpl;
+
 import com.nilesh.InstrumentTrackerSystem.service.EmployeeServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.service.InstLoggerServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
@@ -58,13 +56,13 @@ public class InstrumentTrackerSystemApplication{
 		
 		
 		System.out.println(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getOutTime().getTime());
-		if(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getEntryStatus()==true){
-			System.out.println("Yes its 1");
-		}
-		else {
-			System.out.println("Its false");
-			System.out.println("Its false");
-		}
+//		if(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getEntryStatus()==true){
+//			System.out.println("Yes its 1");
+//		}
+//		else {
+//			System.out.println("Its false");
+//			System.out.println("Its false");
+//		}
 		
 	}	
 }
