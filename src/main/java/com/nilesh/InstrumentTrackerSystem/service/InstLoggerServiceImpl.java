@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.service;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,14 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 	public List<InstLoggerEntity> findByPair(String empId, String instId) {
 		// TODO Auto-generated method stub
 		return theInstLoggerDAOImpl.findByPair(empId, instId);
+	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> findByPair(Calendar startTime, Calendar inTime, Calendar outTime, Calendar timeNow,
+			String empId, String instId) {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.findByPair(startTime, inTime, outTime, timeNow, empId, instId);
 	}
 	
 

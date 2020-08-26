@@ -9,7 +9,6 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 
@@ -70,9 +69,38 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public List<InstLoggerEntity> findAll(Calendar startTime, Calendar inTime, Calendar timeNow, String empId, String instId) {
+	public List<InstLoggerEntity> findByPair(Calendar startTime, Calendar inTime, Calendar outTime, Calendar timeNow, String empId, String instId) {
 		// TODO Auto-generated method stub
-		return null;
+		Boolean entryStatus = true;
+		Query theQuery = entityManager.createNativeQuery("select * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
+		theQuery.setParameter(1, empId);
+		theQuery.setParameter(2, instId);
+		
+		@SuppressWarnings("unchecked")
+		List<InstLoggerEntity> instLoggerList = (List<InstLoggerEntity>)theQuery.getResultList();
+		if (instLoggerList.isEmpty()) {
+			entryStatus = true;
+		}
+		else {
+			
+			System.out.println(instLoggerList.get(0).getInstLoggerId());
+			System.out.println("*******"+instLoggerList.get(0).getEntryStatus());
+			if(instLoggerList.get(0).getEntryStatus()) {
+				System.out.println("in false if condition");
+				entryStatus = false;
+			}else {
+				entryStatus = true;
+			}
+		}
+		InstLoggerEntity instLogger = new InstLoggerEntity();
+		instLogger.setEmpId(empId);
+		instLogger.setEntryStatus(entryStatus);
+		instLogger.setInstId(instId);
+		instLogger.setInTime(inTime);
+		instLogger.setOutTime(outTime);
+		save(instLogger);
+		return instLoggerList;
+
 	}
 
 }

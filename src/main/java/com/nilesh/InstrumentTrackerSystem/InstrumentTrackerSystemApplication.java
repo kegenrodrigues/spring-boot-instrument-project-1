@@ -20,11 +20,19 @@ import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
 public class InstrumentTrackerSystemApplication{
 
 	public static void main(String[] args) {
+		
+		Calendar startTime = Calendar.getInstance();
+		
+		startTime.set(2020, Calendar.MONTH, Calendar.DATE, 0, 0, 0);
+	
 		Calendar inTime = Calendar.getInstance();
 		inTime.set(2020, 8, 24, 5, 48, 58);
 		
 		Calendar outTime = Calendar.getInstance();
 		outTime.set(2020, 8, 26, 3, 45, 34);
+		
+		Calendar timeNow = Calendar.getInstance();
+		timeNow.getTime();
 
 	    ConfigurableApplicationContext ctx = new SpringApplicationBuilder(InstrumentTrackerSystemApplication.class).headless(false).run(args);
 	    
@@ -44,6 +52,11 @@ public class InstrumentTrackerSystemApplication{
 //		theInstrumentServiceImpl.save(instrument1);
 //		theInstLoggerServiceImpl.save(entry1);
 //		
+		
+		theInstLoggerServiceImpl.findByPair(startTime, inTime, outTime,timeNow, "E101", "I104");
+		
+		
+		
 		System.out.println(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getOutTime().getTime());
 		if(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getEntryStatus()==true){
 			System.out.println("Yes its 1");

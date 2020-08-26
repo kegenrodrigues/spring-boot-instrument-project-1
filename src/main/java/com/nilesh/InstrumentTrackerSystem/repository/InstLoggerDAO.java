@@ -12,6 +12,6 @@ public interface InstLoggerDAO{
 	public void save(InstLoggerEntity theInstLogger);
 	public void deleteById(Long instLoggerId);
 	public List<InstLoggerEntity> findByPair(String empId, String instId);
-	public List<InstLoggerEntity> findAll(Calendar startTime,Calendar inTime,Calendar timeNow, String empId,String instId);
+	public List<InstLoggerEntity> findByPair(Calendar startTime,Calendar inTime,Calendar outTime,Calendar timeNow, String empId,String instId);
 	
 }
