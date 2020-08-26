@@ -9,7 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
-
+import com.nilesh.InstrumentTrackerSystem.gui.Login;
 import com.nilesh.InstrumentTrackerSystem.service.EmployeeServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.service.InstLoggerServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
@@ -18,6 +18,9 @@ import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
 public class InstrumentTrackerSystemApplication{
 
 	public static void main(String[] args) {
+
+		
+		
 		
 		Calendar startTime = Calendar.getInstance();
 		
@@ -38,6 +41,25 @@ public class InstrumentTrackerSystemApplication{
 		InstrumentServiceImpl theInstrumentServiceImpl = ctx.getBean(InstrumentServiceImpl.class);
 		InstLoggerServiceImpl theInstLoggerServiceImpl = ctx.getBean(InstLoggerServiceImpl.class);
 
+		
+		
+		
+		
+	    Login theLogin = ctx.getBean(Login.class);
+		theLogin.makeLoginPage();
+		
+		
+		System.out.println(theEmployeeServiceImpl.findById("E101").getEmpId());
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		EmployeeEntity employee1 = new EmployeeEntity();
 		employee1.setEmpId("E101");
 		

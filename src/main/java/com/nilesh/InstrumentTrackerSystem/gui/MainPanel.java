@@ -2,6 +2,8 @@ package com.nilesh.InstrumentTrackerSystem.gui;
 
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 import org.springframework.stereotype.Component;
 
 import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
@@ -15,23 +17,32 @@ public class MainPanel {
 	
 	public void go() {
 
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream  
-		System.out.println("Enter the employee ID");
+		HomeFrame homeFrame = new HomeFrame();
+        homeFrame.setTitle("Home Page");
+        homeFrame.setVisible(true);
+        homeFrame.setBounds(10, 10, 370, 600);
+        homeFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        homeFrame.setResizable(false);
 		
- 
-		String employeeId= sc.nextLine();              //reads string  
-		System.out.print("You have entered: "+employeeId);    
-		
-		System.out.println("Enter the instrument ID");
-		String instrumentId= sc.nextLine();              //reads string  
-		System.out.print("You have entered: "+instrumentId);    
-		
-		
-		
+
 		
 	}
 	
 }
+
+
+//Scanner sc= new Scanner(System.in); //System.in is a standard input stream  
+//System.out.println("Enter the employee ID");
+//
+//
+//String employeeId= sc.nextLine();              //reads string  
+//System.out.print("You have entered: "+employeeId);    
+//
+//System.out.println("Enter the instrument ID");
+//String instrumentId= sc.nextLine();              //reads string  
+//System.out.print("You have entered: "+instrumentId);    
+//
+
 
 
 //JFrame frame = new JFrame();
