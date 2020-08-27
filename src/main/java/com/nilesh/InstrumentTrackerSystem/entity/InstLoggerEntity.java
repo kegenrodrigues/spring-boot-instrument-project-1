@@ -47,18 +47,6 @@ public class InstLoggerEntity {
 	public void setEntryStatus(Boolean entryStatus) {
 		this.entryStatus = entryStatus;
 	}
-//	public java.util.Date getInTime() {
-//		return inTime;
-//	}
-//	public void setInTime(java.util.Date inTime) {
-//		this.inTime = inTime;
-//	}
-//	public java.util.Date getOutTime() {
-//		return outTime;
-//	}
-//	public void setOutTime(java.util.Date outTime) {
-//		this.outTime = outTime;
-//	}
 	
 	public Long getInstLoggerId() {
 		return instLoggerId;
@@ -96,7 +84,6 @@ public class InstLoggerEntity {
 		this.empId = empId;
 		this.instId = instId;
 	}
-	
 	
 	public InstLoggerEntity(String empId, String instId, Calendar inTime, Calendar outTime, Boolean entryStatus) {
 		super();

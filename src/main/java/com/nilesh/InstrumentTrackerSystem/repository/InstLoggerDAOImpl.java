@@ -130,23 +130,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //        System.out.println("Total execution time to fetch result in Java in millis: "
 //               + elapsedTime/1000000);
 
-		
-		
-//				if (instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null){
-//					InstLoggerEntity instLogger = new InstLoggerEntity();
-//					instLogger.setEntryStatus(true);
-//					instLogger.setEmpId(empId);
-//					instLogger.setInstId(instId);
-//					instLogger.setInTime(punchingTime);
-//					instLogger.setOutTime(null);
-//			
-//					save(instLogger);
-//				}
-//				else if(instLoggerEntity.getOutTime()==null){
-//					Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1");
-//					updateQuery.setParameter(1, punchingTime);
-//					updateQuery.executeUpdate();
-//				}
+
 	}catch (NoResultException nre) {
 		// TODO Auto-generated catch block
 		System.out.println("Exception caught");
@@ -168,19 +152,52 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		updateQuery.setParameter(2, instLoggerId);
 		updateQuery.executeUpdate();
 	}
-
-
-//}
-//else if(instLoggerEntity.getOutTime()==null){
-//	Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1");
-//	updateQuery.setParameter(1, punchingTime);
-//	updateQuery.executeUpdate();
-//}
-
 	return null;
 	}
 
+	@Override
+	public List<InstLoggerEntity> fetchListFor() {
+		// TODO Auto-generated method stub
+		Calendar todaysDate = Calendar.getInstance();
+		todaysDate.getTime();
+		
+		Query todaysList = entityManager.createNativeQuery("SELECT * from instLogger where inTime = ?1",InstLoggerEntity.class);
+		todaysList.setParameter(1, todaysDate);
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<InstLoggerEntity> fetchListFor(Calendar requestDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<InstLoggerEntity> fetchListFor(Calendar fromDate, Calendar toDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<InstLoggerEntity> unReturnedItems(Calendar requestDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
 
 
 //public List<MovieObject> getMovieByTitle(EntityManager entityManager,String title) {
