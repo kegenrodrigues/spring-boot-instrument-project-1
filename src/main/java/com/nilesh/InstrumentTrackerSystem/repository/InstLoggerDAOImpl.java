@@ -4,10 +4,11 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
@@ -103,18 +104,18 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	@Override
 	public List<InstLoggerEntity> insertToTable(Calendar punchingTime, String empId, String instId) {
 		// TODO Auto-generated method stub
-
-//		long startTime = System.nanoTime();
 		
-
-		
+		InstLoggerEntity instLoggerEntity = null;
+	
+	try {
+//		long startTime = System.nanoTime();			
 		//Method 1
+		
 		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where instLoggerId = (Select MAX(instLoggerId) from instLogger where empId = ?1 and instId = ?2 GROUP BY empId,instId)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
 		theQuery.setParameter(2, instId);
+		instLoggerEntity = (InstLoggerEntity) theQuery.getSingleResult();
 		
-		InstLoggerEntity instLoggerEntity = (InstLoggerEntity) theQuery.getSingleResult();
-		System.out.println(instLoggerEntity.getEmpId());
 		//Method 2
 		//Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where empId = ?1 and instId = ?2 order by instLoggerId DESC");
 		
@@ -130,49 +131,54 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //               + elapsedTime/1000000);
 
 		
-
-		if (instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null){
-			InstLoggerEntity instLogger = new InstLoggerEntity();
-			instLogger.setEntryStatus(true);
-			instLogger.setEmpId(empId);
-			instLogger.setInstId(instId);
-			instLogger.setInTime(punchingTime);
-			instLogger.setOutTime(null);
-	
-			save(instLogger);
-		}
-		else if(instLoggerEntity.getOutTime()==null){
-			Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1");
-			updateQuery.setParameter(1, punchingTime);
-			updateQuery.executeUpdate();
-		}
 		
-//		@SuppressWarnings("unchecked")
-//		List<InstLoggerEntity> instLoggerList = (List<InstLoggerEntity>)theQuery.getResultList();
-//	
-//		if (!instLoggerList.isEmpty()) {
-//	
-//			System.out.println(instLoggerList.get(0).getInstLoggerId());
-//			System.out.println("*******"+instLoggerList.get(0).getEntryStatus());
-//			if(instLoggerList.get(0).getEntryStatus()) {
-//				System.out.println("in false if condition");
-//				entryStatus = false;
-//			}
-//		}
-//		InstLoggerEntity instLogger = new InstLoggerEntity();
-//		instLogger.setEmpId(empId);
-//		instLogger.setEntryStatus(entryStatus);
-//		instLogger.setInstId(instId);
-//		instLogger.setInTime(inTime);
-//		instLogger.setOutTime(outTime);
-//		save(instLogger);
-//		return instLoggerList;
-//		
-		
-		return null;
+//				if (instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null){
+//					InstLoggerEntity instLogger = new InstLoggerEntity();
+//					instLogger.setEntryStatus(true);
+//					instLogger.setEmpId(empId);
+//					instLogger.setInstId(instId);
+//					instLogger.setInTime(punchingTime);
+//					instLogger.setOutTime(null);
+//			
+//					save(instLogger);
+//				}
+//				else if(instLoggerEntity.getOutTime()==null){
+//					Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1");
+//					updateQuery.setParameter(1, punchingTime);
+//					updateQuery.executeUpdate();
+//				}
+	}catch (NoResultException nre) {
+		// TODO Auto-generated catch block
+		System.out.println("Exception caught");
 	}
 	
-	
+	if((instLoggerEntity==null)||(instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null)) {//and this//if ()
+		InstLoggerEntity instLogger = new InstLoggerEntity();
+		instLogger.setEntryStatus(true);
+		instLogger.setEmpId(empId);
+		instLogger.setInstId(instId);
+		instLogger.setInTime(punchingTime);
+		instLogger.setOutTime(null);
+		save(instLogger);
+	}
+	else if(instLoggerEntity.getOutTime()==null){
+		Long instLoggerId = instLoggerEntity.getInstLoggerId();
+		Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1 where instLoggerId = ?2");
+		updateQuery.setParameter(1, punchingTime);
+		updateQuery.setParameter(2, instLoggerId);
+		updateQuery.executeUpdate();
+	}
+
+
+//}
+//else if(instLoggerEntity.getOutTime()==null){
+//	Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1");
+//	updateQuery.setParameter(1, punchingTime);
+//	updateQuery.executeUpdate();
+//}
+
+	return null;
+	}
 
 }
 

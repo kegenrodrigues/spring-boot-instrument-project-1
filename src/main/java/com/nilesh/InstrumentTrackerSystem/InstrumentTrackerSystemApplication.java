@@ -45,45 +45,57 @@ public class InstrumentTrackerSystemApplication{
 		InstLoggerServiceImpl theInstLoggerServiceImpl = ctx.getBean(InstLoggerServiceImpl.class);
 
 		
+		EmployeeEntity employee1 = new EmployeeEntity();
+		employee1.setEmpId("E101");
+		
+		InstrumentEntity instrument1 = new InstrumentEntity();
+		instrument1.setInstId("I104");
+
+		theEmployeeServiceImpl.save(employee1);
+		theInstrumentServiceImpl.save(instrument1);
 		System.out.println(theInstLoggerServiceImpl.insertToTable(theTime,"E101", "I104")); 
+		
+		
+		
+		
+		
+		EmployeeEntity employee2 = new EmployeeEntity();
+		employee2.setEmpId("E102");
+		
+		InstrumentEntity instrument2 = new InstrumentEntity();
+		instrument2.setInstId("I103");
+
+		theEmployeeServiceImpl.save(employee2);
+		theInstrumentServiceImpl.save(instrument2);
+		System.out.println(theInstLoggerServiceImpl.insertToTable(theTime,"E102", "I103")); 
+		//System.out.println(theInstLoggerServiceImpl.insertToTable(theTime,"E101", "I104")); 
+		
 		
 		
 //	    Login theLogin = ctx.getBean(Login.class);
 //		theLogin.makeLoginPage();
 		
 		
-		System.out.println(theEmployeeServiceImpl.findById("E101").getEmpId());
+//System.out.println(theEmployeeServiceImpl.findById("E101").getEmpId());
 		
 		
 		
 		
-		
-		EmployeeEntity employee1 = new EmployeeEntity();
-		employee1.setEmpId("E101");
-		
-		InstrumentEntity instrument1 = new InstrumentEntity();
-		instrument1.setInstId("I104");;
-			
-		InstLoggerEntity entry1 = new InstLoggerEntity("E101", "I104",inTime, outTime, true);
-	
-		theEmployeeServiceImpl.save(employee1);
-		theInstrumentServiceImpl.save(instrument1);
-		theInstLoggerServiceImpl.save(entry1);
-		
-		
-		//theInstLoggerServiceImpl.findByPair(startTime, inTime, outTime,timeNow, "E101", "I104");
-		theInstLoggerServiceImpl.insertToTable(timeNow,"E101","I104");
-		
-		
+
+//			
+//		InstLoggerEntity entry1 = new InstLoggerEntity("E101", "I104",inTime, outTime, true);
+//	
+
+//		theInstLoggerServiceImpl.save(entry1);
+//		
+//		
+//		//theInstLoggerServiceImpl.findByPair(startTime, inTime, outTime,timeNow, "E101", "I104");
+//		System.out.println(theInstLoggerServiceImpl.insertToTable(timeNow,"E101","I104"));
+//		
+//		
 		
 		//System.out.println(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getOutTime().getTime());
-//		if(theInstLoggerServiceImpl.findByPair("E101", "I104").get(0).getEntryStatus()==true){
-//			System.out.println("Yes its 1");
-//		}
-//		else {
-//			System.out.println("Its false");
-//			System.out.println("Its false");
-//		}
+
 		
 	}	
 }
