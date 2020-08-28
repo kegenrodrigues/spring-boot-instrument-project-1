@@ -11,7 +11,7 @@ public class BeanToCSV {
 	{ 
 
 		// name of generated csv 
-		final String CSV_LOCATION = "Keegeer.csv"; 
+		final String CSV_LOCATION = "Keegeere.csv"; 
 
 		try { 
 
@@ -20,7 +20,8 @@ public class BeanToCSV {
 			// Creating writer class to generate 
 			// csv file 
 			FileWriter writer = new FileWriter(CSV_LOCATION); 
-
+			writer.append("Name,Age,Company,Salary");//Needs correction to get heading properly aligned
+			
 			// create a list of employee 
 			List<Employee> EmployeeList = new ArrayList<Employee>(); 
 			Employee emp1 = new Employee("Mahafuj", "24", "HTc", "75000"); 
