@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.List;
 
@@ -158,15 +159,17 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	@Override
 	public List<InstLoggerEntity> fetchListFor() {
 		// TODO Auto-generated method stub
-		Calendar todaysDate = Calendar.getInstance();
-		todaysDate.getTime();
+
 		
-		Query todaysList = entityManager.createNativeQuery("SELECT * from instLogger where inTime = ?1",InstLoggerEntity.class);
-		todaysList.setParameter(1, todaysDate);
+		Query todaysList = entityManager.createNativeQuery("SELECT * from instLogger where inTime >= CURDATE()\n" + 
+				"  AND inTime < CURDATE() + INTERVAL 1 DAY",InstLoggerEntity.class);
+
+		@SuppressWarnings("unchecked")
+		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)todaysList.getResultList();
+		System.out.println(instLogger.get(0).getInstLoggerId());
+		System.out.println(instLogger);
 		
-		
-		
-		return null;
+		return instLogger;
 	}
 
 	@Override

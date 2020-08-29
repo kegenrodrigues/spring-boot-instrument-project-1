@@ -66,6 +66,34 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 		// TODO Auto-generated method stub
 		return theInstLoggerDAOImpl.insertToTable(punchingTime, empId, instId);
 	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> fetchListFor() {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.fetchListFor();
+	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> fetchListFor(Calendar requestDate) {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.fetchListFor(requestDate);
+	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> fetchListFor(Calendar fromDate, Calendar toDate) {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.fetchListFor(fromDate, toDate);
+	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> unReturnedItems(Calendar requestDate) {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.unReturnedItems(requestDate);
+	}
 	
 
 }
