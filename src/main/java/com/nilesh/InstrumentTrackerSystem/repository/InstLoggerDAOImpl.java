@@ -1,7 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
-import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,7 +9,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
@@ -161,14 +160,30 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		// TODO Auto-generated method stub
 
 		
-		Query todaysList = entityManager.createNativeQuery("SELECT * from instLogger where inTime >= CURDATE()\n" + 
+		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId,entryStatus from instLogger where inTime >= CURDATE()\n" + 
 				"  AND inTime < CURDATE() + INTERVAL 1 DAY",InstLoggerEntity.class);
 
+//		Calendar todayInTime = Calendar.getInstance();//new GregorianCalendar();
+//		// reset hour, minutes, seconds and millis
+//		todayInTime.set(Calendar.HOUR_OF_DAY, 0);
+//		todayInTime.set(Calendar.MINUTE, 0);
+//		todayInTime.set(Calendar.SECOND, 0);
+//		todayInTime.set(Calendar.MILLISECOND, 0);
+//		
+//		Calendar nextDayInTime = (Calendar)todayInTime.clone();
+//
+//		nextDayInTime.add(Calendar.DAY_OF_MONTH, 1);
+//		System.out.println(todayInTime.getTime());
+//		System.out.println(nextDayInTime.getTime());
+//		
+//		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId,entryStatus from instLogger where inTime BETWEEN ?1 AND ?2",InstLoggerEntity.class);
+//		todaysList.setParameter(1, todayInTime);
+//		todaysList.setParameter(2, nextDayInTime);
+		
 		@SuppressWarnings("unchecked")
 		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)todaysList.getResultList();
-		System.out.println(instLogger.get(0).getInstLoggerId());
-		System.out.println(instLogger);
-		
+
+			      
 		return instLogger;
 	}
 

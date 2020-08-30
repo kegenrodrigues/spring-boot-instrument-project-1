@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerCSV;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.service.InstLoggerServiceImpl;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
@@ -25,7 +26,7 @@ public class CSVFromBean {
 	{ 
 
 		// name of generated csv 
-		final String CSV_LOCATION = "Kegen.csv"; 
+		final String CSV_LOCATION = "Nothing.csv"; 
 //		CSVWriter csvWriter = null;
 
 		try { 
@@ -43,33 +44,41 @@ public class CSVFromBean {
 			List<InstLoggerEntity> instLogList = new ArrayList<InstLoggerEntity>(); 
 			instLogList = instLoggerServiceImpl.fetchListFor();
 			
-//	        List<Object[]> objectList = query.getResultList();
-			//
-//			        List<MovieObject> result = new ArrayList<>();
-//			        for (Object[] row : objectList) {
-//			            result.add(new MovieObject(row));
-//			        }
-//			        return result;
-			//fetchListFor();//Call fetchListFor
+			List<InstLoggerCSV> instLogCSVList = new ArrayList<InstLoggerCSV>();
 			
+			for(InstLoggerEntity instLogger: instLogList) {
+				InstLoggerCSV instLogCSV = new InstLoggerCSV();
+				instLogCSV.setEmpId(instLogger.getEmpId());
+				instLogCSV.setInstId(instLogger.getInstId());
+				instLogCSV.setInstLoggerId(instLogger.getInstLoggerId());
+				instLogCSV.setEntryStatus(instLogger.getEntryStatus());
+				instLogCSV.setInTime(instLogger.getInTime().getTime().toGMTString());
+				if(instLogger.getOutTime() == null) {
+					instLogCSV.setOutTime("");
+				}else {
+					instLogCSV.setOutTime(instLogger.getOutTime().getTime().toGMTString());
+				}
+				instLogCSVList.add(instLogCSV);
+			}
+
 			System.out.println(instLogList);
 			System.out.println(instLogList.get(0).getInTime().getTime());
 			
 			// Create Mapping Strategy to arrange the 
 			// column name in order 
-			ColumnPositionMappingStrategy<InstLoggerEntity> mappingStrategy= new ColumnPositionMappingStrategy<InstLoggerEntity>(); 
-			mappingStrategy.setType(InstLoggerEntity.class); 
+			ColumnPositionMappingStrategy<InstLoggerCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstLoggerCSV>(); 
+			mappingStrategy.setType(InstLoggerCSV.class); 
 
 			// Arrange column name as provided in below array. 
 			String[] columns = new String[]{ "instLoggerId","inTime","outTime","empId","instId","entryStatus"}; 
 			mappingStrategy.setColumnMapping(columns); 
 			
 			// Creating StatefulBeanToCsv object 
-			StatefulBeanToCsvBuilder<InstLoggerEntity> builder = new StatefulBeanToCsvBuilder<InstLoggerEntity>(writer); 
-			StatefulBeanToCsv<InstLoggerEntity> beanWriter = builder.withMappingStrategy(mappingStrategy).build(); 
+			StatefulBeanToCsvBuilder<InstLoggerCSV> builder = new StatefulBeanToCsvBuilder<InstLoggerCSV>(writer); 
+			StatefulBeanToCsv<InstLoggerCSV> beanWriter = builder.withMappingStrategy(mappingStrategy).build(); 
 
 			// Write list to StatefulBeanToCsv object 
-			beanWriter.write(instLogList); 
+			beanWriter.write(instLogCSVList); 
 
 			// closing the writer object 
 			writer.close(); 
