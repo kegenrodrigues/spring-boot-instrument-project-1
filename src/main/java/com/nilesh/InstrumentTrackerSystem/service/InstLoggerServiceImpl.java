@@ -14,8 +14,7 @@ import com.nilesh.InstrumentTrackerSystem.repository.InstLoggerDAOImpl;
 public class InstLoggerServiceImpl implements InstLoggerService {
 
 	@Autowired
-	private  InstLoggerDAOImpl theInstLoggerDAOImpl;
-	
+	private InstLoggerDAOImpl theInstLoggerDAOImpl;
 	
 	@Override
 	@Transactional
@@ -94,6 +93,5 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 		// TODO Auto-generated method stub
 		return theInstLoggerDAOImpl.unReturnedItems(requestDate);
 	}
-	
 
 }

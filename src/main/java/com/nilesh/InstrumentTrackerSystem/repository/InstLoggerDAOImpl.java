@@ -1,7 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -102,9 +102,10 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public List<InstLoggerEntity> insertToTable(Calendar punchingTime, String empId, String instId) {
+	public List<InstLoggerEntity>  insertToTable(Calendar punchingTime, String empId, String instId) {
 		// TODO Auto-generated method stub
-		
+		List<InstLoggerEntity> theInstLoggerEntityList = new ArrayList<InstLoggerEntity>();
+	
 		InstLoggerEntity instLoggerEntity = null;
 	
 	try {
@@ -144,7 +145,9 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		instLogger.setInTime(punchingTime);
 		instLogger.setOutTime(null);
 		save(instLogger);
+		theInstLoggerEntityList.add(instLogger);
 	}
+	
 	else if(instLoggerEntity.getOutTime()==null){
 		Long instLoggerId = instLoggerEntity.getInstLoggerId();
 		Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1 where instLoggerId = ?2");
@@ -152,7 +155,8 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		updateQuery.setParameter(2, instLoggerId);
 		updateQuery.executeUpdate();
 	}
-	return null;
+	
+		return theInstLoggerEntityList;
 	}
 
 	@Override
@@ -206,34 +210,3 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//public List<MovieObject> getMovieByTitle(EntityManager entityManager,String title) {
-//
-//    String queryStr = "SELECT movieId, title, genres FROM movies where title like = ?1";
-//    try {
-//        Query query = entityManager.createNativeQuery(queryStr);
-//        query.setParameter(1, title);
-//
-//        List<Object[]> objectList = query.getResultList();
-//
-//        List<MovieObject> result = new ArrayList<>();
-//        for (Object[] row : objectList) {
-//            result.add(new MovieObject(row));
-//        }
-//        return result;
-//    } catch (Exception e) {
-//        e.printStackTrace();
-//        throw e;
-//    }
-//}

@@ -1,16 +1,16 @@
 package com.nilesh.InstrumentTrackerSystem.gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-
 import javax.swing.JFrame;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Login {    
+	@Autowired
+	LoginFrame frame;
+	
     public void makeLoginPage() {
-    	  LoginFrame frame = new LoginFrame();
           frame.setTitle("Login Form");
           frame.setVisible(true);
           frame.setBounds(10, 10, 370, 600);

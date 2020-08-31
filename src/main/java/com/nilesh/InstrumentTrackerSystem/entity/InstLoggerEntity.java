@@ -1,7 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.entity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "instlogger")//Let the name be instlogger
@@ -27,15 +25,10 @@ public class InstLoggerEntity {
 	@Column(name = "instId")
 	private String instId;
 	
-	
-	//@Temporal(TemporalType.TIMESTAMP) // Check if using this you can retrive time as well from the db
 	@Column(name = "inTime")
-	//private java.util.Date inTime;
 	private Calendar inTime;
 	
-	//@Temporal(TemporalType.TIMESTAMP) //Check if using this you can retrive time as well from the db
 	@Column(name = "outTime")
-	//private java.util.Date outTime;
 	private Calendar outTime;
 	 
 	@Column(name = "entryStatus")

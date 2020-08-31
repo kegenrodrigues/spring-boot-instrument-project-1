@@ -22,6 +22,7 @@ public class CSVFromBean {
 	@Autowired
 	InstLoggerServiceImpl instLoggerServiceImpl;
 	
+	@SuppressWarnings("deprecation")
 	public void fetchReport() 
 	{ 
 

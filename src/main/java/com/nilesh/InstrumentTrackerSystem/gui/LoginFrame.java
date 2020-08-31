@@ -13,8 +13,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class LoginFrame extends JFrame implements ActionListener {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@SuppressWarnings("serial")
+@Component
+public class LoginFrame extends JFrame implements ActionListener {
+	@Autowired
+	MainPanel mainPanel;
     Container container = getContentPane();
     JLabel userLabel = new JLabel("USERNAME");
     JLabel passwordLabel = new JLabel("PASSWORD");
@@ -26,7 +32,6 @@ public class LoginFrame extends JFrame implements ActionListener {
     //JFrame theFrame;
 
     LoginFrame() {
-    	//theFrame = this;
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -67,7 +72,8 @@ public class LoginFrame extends JFrame implements ActionListener {
     }
 
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton) {
             String userText;
@@ -75,11 +81,9 @@ public class LoginFrame extends JFrame implements ActionListener {
             
             userText = userTextField.getText();
             pwdText = passwordField.getText();
-            if (userText.equalsIgnoreCase("mehtab") && pwdText.equalsIgnoreCase("12345")) {
+            if (userText.equalsIgnoreCase("") && pwdText.equalsIgnoreCase("")) {
             	dispose();
-            	MainPanel mainPanel = new MainPanel();
             	mainPanel.go();
-                //JOptionPane.showMessageDialog(this, "Login Successful");
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid Username or Password");
             }

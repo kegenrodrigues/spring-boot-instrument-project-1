@@ -8,8 +8,7 @@ import javax.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
-//import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
+
 import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
 
 @Repository
