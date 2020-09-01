@@ -1,4 +1,0 @@
-instLoggerId,inTime,outTime,empId,instId,entryStatus
-"1","30 Aug 2020 20:45:33 GMT","30 Aug 2020 20:45:33 GMT","E101","I104","true"
-"2","30 Aug 2020 20:45:33 GMT","30 Aug 2020 20:46:11 GMT","E102","I103","true"
-"3","30 Aug 2020 20:46:11 GMT","30 Aug 2020 20:46:11 GMT","E101","I104","true"

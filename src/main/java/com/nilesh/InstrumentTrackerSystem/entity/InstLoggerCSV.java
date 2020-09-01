@@ -10,7 +10,6 @@ public class InstLoggerCSV {
 	private String instId;
 	private String inTime;
 	private String outTime;
-	private Boolean entryStatus;
 	
 	public Long getInstLoggerId() {
 		return instLoggerId;
@@ -42,27 +41,16 @@ public class InstLoggerCSV {
 	public void setOutTime(String outTime) {
 		this.outTime = outTime;
 	}
-	public Boolean getEntryStatus() {
-		return entryStatus;
-	}
-	public void setEntryStatus(Boolean entryStatus) {
-		this.entryStatus = entryStatus;
-	}
-	public InstLoggerCSV(Long instLoggerId, String empId, String instId, String inTime, String outTime,
-			Boolean entryStatus) {
+
+	public InstLoggerCSV(Long instLoggerId, String empId, String instId, String inTime, String outTime) {
 		super();
 		this.instLoggerId = instLoggerId;
 		this.empId = empId;
 		this.instId = instId;
 		this.inTime = inTime;
 		this.outTime = outTime;
-		this.entryStatus = entryStatus;
 	}
 	
-	public InstLoggerCSV(){
-		
+	public InstLoggerCSV(){	
 	}
-	
-	
-	
 }

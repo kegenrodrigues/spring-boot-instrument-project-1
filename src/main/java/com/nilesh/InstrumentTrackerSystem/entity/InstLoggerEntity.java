@@ -31,16 +31,6 @@ public class InstLoggerEntity {
 	@Column(name = "outTime")
 	private Calendar outTime;
 	 
-	@Column(name = "entryStatus")
-	private Boolean entryStatus;
-	
-	public Boolean getEntryStatus() {
-		return entryStatus;
-	}
-	public void setEntryStatus(Boolean entryStatus) {
-		this.entryStatus = entryStatus;
-	}
-	
 	public Long getInstLoggerId() {
 		return instLoggerId;
 	}
@@ -78,13 +68,12 @@ public class InstLoggerEntity {
 		this.instId = instId;
 	}
 	
-	public InstLoggerEntity(String empId, String instId, Calendar inTime, Calendar outTime, Boolean entryStatus) {
+	public InstLoggerEntity(String empId, String instId, Calendar inTime, Calendar outTime) {
 		super();
 		this.empId = empId;
 		this.instId = instId;
 		this.inTime = inTime;
 		this.outTime = outTime;
-		this.entryStatus = entryStatus;
 	}
 	public InstLoggerEntity() {
 	

@@ -1,12 +1,12 @@
 #
 # A fatal error has been detected by the Java Runtime Environment:
 #
-#  SIGSEGV (0xb) at pc=0x0000000101153534, pid=1806, tid=5891
+#  SIGSEGV (0xb) at pc=0x000000010c753534, pid=26471, tid=6147
 #
 # JRE version: Java(TM) SE Runtime Environment 18.9 (11.0.7+8) (build 11.0.7+8-LTS)
 # Java VM: Java HotSpot(TM) 64-Bit Server VM 18.9 (11.0.7+8-LTS, mixed mode, tiered, compressed oops, g1 gc, bsd-amd64)
 # Problematic frame:
-# V  [libjvm.dylib+0x753534]  _ZN16RawAccessBarrierILy1097844EE13load_internalILy1097844EP7oopDescEEN8EnableIfIXsr12HasDecoratorIXT_EXL_ZL12MO_UNORDEREDEEEE5valueET0_E4typeEPv+0x4
+# V  [libjvm.dylib+0x753534]  EnableIf<HasDecorator<1097844ull, MO_UNORDERED>::value, oopDesc*>::type RawAccessBarrier<1097844ull>::load_internal<1097844ull, oopDesc*>(void*)+0x4
 #
 # No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
 #
@@ -19,17 +19,17 @@
 Command Line: -Dfile.encoding=UTF-8 oracle.jdbc.driver.JavaToJavaConverter$205
 
 Host: MacBookAir7,2 x86_64 1800 MHz, 4 cores, 8G, Darwin 19.5.0
-Time: Fri Aug 21 14:52:02 2020 IST elapsed time: 0 seconds (0d 0h 0m 0s)
+Time: Tue Sep  1 14:26:54 2020 IST elapsed time: 0 seconds (0d 0h 0m 0s)
 
 ---------------  T H R E A D  ---------------
 
-Current thread (0x00007fd36480d000):  JavaThread "main" [_thread_in_vm, id=5891, stack(0x000070000066d000,0x000070000076d000)]
+Current thread (0x00007f889b009000):  JavaThread "main" [_thread_in_vm, id=6147, stack(0x000070000353e000,0x000070000363e000)]
 
-Stack: [0x000070000066d000,0x000070000076d000],  sp=0x000070000076cdd0,  free space=1023k
+Stack: [0x000070000353e000,0x000070000363e000],  sp=0x000070000363ddd0,  free space=1023k
 Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
-V  [libjvm.dylib+0x753534]  _ZN16RawAccessBarrierILy1097844EE13load_internalILy1097844EP7oopDescEEN8EnableIfIXsr12HasDecoratorIXT_EXL_ZL12MO_UNORDEREDEEEE5valueET0_E4typeEPv+0x4
-V  [libjvm.dylib+0x7534f9]  _ZN16RawAccessBarrierILy1097844EE8oop_loadIP7oopDescEET_Pv+0x9
-V  [libjvm.dylib+0x75356b]  _ZN12G1BarrierSet13AccessBarrierILy1097844ES_E20oop_load_not_in_heapIP7oopDescEES4_PT_+0xb
+V  [libjvm.dylib+0x753534]  EnableIf<HasDecorator<1097844ull, MO_UNORDERED>::value, oopDesc*>::type RawAccessBarrier<1097844ull>::load_internal<1097844ull, oopDesc*>(void*)+0x4
+V  [libjvm.dylib+0x7534f9]  oopDesc* RawAccessBarrier<1097844ull>::oop_load<oopDesc*>(void*)+0x9
+V  [libjvm.dylib+0x75356b]  oopDesc* G1BarrierSet::AccessBarrier<1097844ull, G1BarrierSet>::oop_load_not_in_heap<oopDesc*>(oopDesc**)+0xb
 V  [libjvm.dylib+0x3e9cc5]  jni_GetStringUTFChars+0xe3
 C  [java+0x6f75]  PostJVMInit+0xad
 C  [java+0x4877]  JavaMain+0xa4f
@@ -43,109 +43,109 @@ Register to memory mapping:
 
 RAX=0x0 is NULL
 RBX=0x0 is NULL
-RCX=0x000000010133cf01: jni_NativeInterface+0x1 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x0000000100a00000
+RCX=0x000000010c93cf01: jni_NativeInterface+0x1 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x000000010c000000
 RDX=0x0 is NULL
-RSP=0x000070000076cdd0 is pointing into the stack for thread: 0x00007fd36480d000
-RBP=0x000070000076cdd0 is pointing into the stack for thread: 0x00007fd36480d000
+RSP=0x000070000363ddd0 is pointing into the stack for thread: 0x00007f889b009000
+RBP=0x000070000363ddd0 is pointing into the stack for thread: 0x00007f889b009000
 RSI=0x0 is NULL
 RDI=0x0 is NULL
-R8 ={method} {0x00000001025ab640} 'getCanonicalName' '()Ljava/lang/String;' in 'java/lang/Class'
-R9 =0x00007fd363419b00 points into unknown readable memory: 40 b6 5a 02 01 00 00 00
-R10=0x0000000101399800: _ZN19TemplateInterpreter13_active_tableE+0x4800 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x0000000100a00000
-R11=0x00000001025a3f00 is pointing into metadata
-R12=0x00007fd36480d340 points into unknown readable memory: 00 cf 33 01 01 00 00 00
+R8 ={method} {0x000000011a033640} 'getCanonicalName' '()Ljava/lang/String;' in 'java/lang/Class'
+R9 =0x00007f8898c1d6f0 points into unknown readable memory: 40 36 03 1a 01 00 00 00
+R10=0x000000010c999800: _ZN19TemplateInterpreter13_active_tableE+0x4800 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x000000010c000000
+R11=0x000000011a02bf00 is pointing into metadata
+R12=0x00007f889b009340 points into unknown readable memory: 00 cf 93 0c 01 00 00 00
 R13=0x0 is NULL
-R14=0x00007fd36480d000 is a thread
+R14=0x00007f889b009000 is a thread
 R15=0x0 is NULL
 
 
 Registers:
-RAX=0x0000000000000000, RBX=0x0000000000000000, RCX=0x000000010133cf01, RDX=0x0000000000000000
-RSP=0x000070000076cdd0, RBP=0x000070000076cdd0, RSI=0x0000000000000000, RDI=0x0000000000000000
-R8 =0x00000001025ab640, R9 =0x00007fd363419b00, R10=0x0000000101399800, R11=0x00000001025a3f00
-R12=0x00007fd36480d340, R13=0x0000000000000000, R14=0x00007fd36480d000, R15=0x0000000000000000
-RIP=0x0000000101153534, EFLAGS=0x0000000000010246, ERR=0x0000000000000004
+RAX=0x0000000000000000, RBX=0x0000000000000000, RCX=0x000000010c93cf01, RDX=0x0000000000000000
+RSP=0x000070000363ddd0, RBP=0x000070000363ddd0, RSI=0x0000000000000000, RDI=0x0000000000000000
+R8 =0x000000011a033640, R9 =0x00007f8898c1d6f0, R10=0x000000010c999800, R11=0x000000011a02bf00
+R12=0x00007f889b009340, R13=0x0000000000000000, R14=0x00007f889b009000, R15=0x0000000000000000
+RIP=0x000000010c753534, EFLAGS=0x0000000000010246, ERR=0x0000000000000004
   TRAPNO=0x000000000000000e
 
-Top of Stack: (sp=0x000070000076cdd0)
-0x000070000076cdd0:   000070000076cde0 00000001011534f9
-0x000070000076cde0:   000070000076ce00 000000010115356b
-0x000070000076cdf0:   0000000000000000 0000000000000000
-0x000070000076ce00:   000070000076ce90 0000000100de9cc5
-0x000070000076ce10:   000000010138ec01 00007fd36480d000
-0x000070000076ce20:   000070000076ce40 000000010115090e
-0x000070000076ce30:   000000010138ec01 00007fd36480d000
-0x000070000076ce40:   0000000000000000 00000001011508a4
-0x000070000076ce50:   0000000000000000 00007fd36480d000
-0x000070000076ce60:   000070000076ce90 00007fd36480d340
-0x000070000076ce70:   00007fd363607d30 0000000000000000
-0x000070000076ce80:   0000000000000000 00007fd363607d38
-0x000070000076ce90:   000070000076cf20 0000000100085f75
-0x000070000076cea0:   000000010138ec01 00007fd36480d000
-0x000070000076ceb0:   000070000076ced0 000000010115090e
-0x000070000076cec0:   000000010138ec01 00007fd36480d000
-0x000070000076ced0:   000070000076cef0 00000001011508a4
-0x000070000076cee0:   00007fd363607340 0000000000000000
-0x000070000076cef0:   000070000076cf20 160bad9a2f010019
-0x000070000076cf00:   00007fd36480d340 00007fd363607d30
-0x000070000076cf10:   00007fd363607d48 00007fd363607d38
-0x000070000076cf20:   000070000076cfb0 0000000100083877
-0x000070000076cf30:   0000000000000000 00000174105921d6
-0x000070000076cf40:   0000000400010002 00007fd363606530
-0x000070000076cf50:   0000000000000000 0000000000000000
-0x000070000076cf60:   00007fd363507b18 0000000000000001
-0x000070000076cf70:   00007fd363604150 00007fd36480d340
-0x000070000076cf80:   000000010133cef8 000070000076d000
-0x000070000076cf90:   0000000000000000 0000000000000000
-0x000070000076cfa0:   0000000000000000 0000000000000000
-0x000070000076cfb0:   000070000076cfd0 00007fff71b80109
-0x000070000076cfc0:   0000000000000000 0000000000000000 
+Top of Stack: (sp=0x000070000363ddd0)
+0x000070000363ddd0:   000070000363dde0 000000010c7534f9
+0x000070000363dde0:   000070000363de00 000000010c75356b
+0x000070000363ddf0:   0000000000000000 0000000000000000
+0x000070000363de00:   000070000363de90 000000010c3e9cc5
+0x000070000363de10:   000000010c98ec01 00007f889b009000
+0x000070000363de20:   000070000363de40 000000010c75090e
+0x000070000363de30:   000000010c98ec01 00007f889b009000
+0x000070000363de40:   0000000000000000 000000010c7508a4
+0x000070000363de50:   0000000000000000 00007f889b009000
+0x000070000363de60:   000070000363de90 00007f889b009340
+0x000070000363de70:   00007f889a8052b0 0000000000000000
+0x000070000363de80:   0000000000000000 00007f889a8052b8
+0x000070000363de90:   000070000363df20 000000010b76bf75
+0x000070000363dea0:   000000010c98ec01 00007f889b009000
+0x000070000363deb0:   000070000363ded0 000000010c75090e
+0x000070000363dec0:   000000010c98ec01 00007f889b009000
+0x000070000363ded0:   000070000363def0 000000010c7508a4
+0x000070000363dee0:   00007f889a8047b0 0000000000000000
+0x000070000363def0:   000070000363df20 2358cb06c2ee0002
+0x000070000363df00:   00007f889b009340 00007f889a8052b0
+0x000070000363df10:   00007f889a8052c8 00007f889a8052b8
+0x000070000363df20:   000070000363dfb0 000000010b769877
+0x000070000363df30:   0000000000000000 0000017448e2c64f
+0x000070000363df40:   0000000400010002 00007f8898d0c5d0
+0x000070000363df50:   0000000000000000 0000000000000000
+0x000070000363df60:   00007f8898c06848 0000000000000001
+0x000070000363df70:   00007f8898c067d0 00007f889b009340
+0x000070000363df80:   000000010c93cef8 000070000363e000
+0x000070000363df90:   0000000000000000 0000000000000000
+0x000070000363dfa0:   0000000000000000 0000000000000000
+0x000070000363dfb0:   000070000363dfd0 00007fff71b80109
+0x000070000363dfc0:   0000000000000000 0000000000000000 
 
-Instructions: (pc=0x0000000101153534)
-0x0000000101153514:   5d e9 16 00 00 00 66 0f 1f 44 00 00 55 48 89 e5
-0x0000000101153524:   5d e9 16 00 00 00 66 0f 1f 44 00 00 55 48 89 e5
-0x0000000101153534:   48 8b 07 5d c3 0f 1f 80 00 00 00 00 55 48 89 e5
-0x0000000101153544:   48 89 f8 5d c3 0f 1f 80 00 00 00 00 55 48 89 e5 
+Instructions: (pc=0x000000010c753534)
+0x000000010c753514:   5d e9 16 00 00 00 66 0f 1f 44 00 00 55 48 89 e5
+0x000000010c753524:   5d e9 16 00 00 00 66 0f 1f 44 00 00 55 48 89 e5
+0x000000010c753534:   48 8b 07 5d c3 0f 1f 80 00 00 00 00 55 48 89 e5
+0x000000010c753544:   48 89 f8 5d c3 0f 1f 80 00 00 00 00 55 48 89 e5 
 
 Stack slot to memory mapping:
-stack at sp + 0 slots: 0x000070000076cde0 is pointing into the stack for thread: 0x00007fd36480d000
-stack at sp + 1 slots: 0x00000001011534f9: _ZN16RawAccessBarrierILy1097844EE8oop_loadIP7oopDescEET_Pv+0x9 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x0000000100a00000
-stack at sp + 2 slots: 0x000070000076ce00 is pointing into the stack for thread: 0x00007fd36480d000
-stack at sp + 3 slots: 0x000000010115356b: _ZN12G1BarrierSet13AccessBarrierILy1097844ES_E20oop_load_not_in_heapIP7oopDescEES4_PT_+0xb in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x0000000100a00000
+stack at sp + 0 slots: 0x000070000363dde0 is pointing into the stack for thread: 0x00007f889b009000
+stack at sp + 1 slots: 0x000000010c7534f9: _ZN16RawAccessBarrierILy1097844EE8oop_loadIP7oopDescEET_Pv+0x9 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x000000010c000000
+stack at sp + 2 slots: 0x000070000363de00 is pointing into the stack for thread: 0x00007f889b009000
+stack at sp + 3 slots: 0x000000010c75356b: _ZN12G1BarrierSet13AccessBarrierILy1097844ES_E20oop_load_not_in_heapIP7oopDescEES4_PT_+0xb in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x000000010c000000
 stack at sp + 4 slots: 0x0 is NULL
 stack at sp + 5 slots: 0x0 is NULL
-stack at sp + 6 slots: 0x000070000076ce90 is pointing into the stack for thread: 0x00007fd36480d000
-stack at sp + 7 slots: 0x0000000100de9cc5: jni_GetStringUTFChars+0xe3 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x0000000100a00000
+stack at sp + 6 slots: 0x000070000363de90 is pointing into the stack for thread: 0x00007f889b009000
+stack at sp + 7 slots: 0x000000010c3e9cc5: jni_GetStringUTFChars+0xe3 in /Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib at 0x000000010c000000
 
 
 ---------------  P R O C E S S  ---------------
 
 Threads class SMR info:
-_java_thread_list=0x00007fd363613300, length=9, elements={
-0x00007fd36480d000, 0x00007fd36383e800, 0x00007fd363841800, 0x00007fd364865000,
-0x00007fd364867800, 0x00007fd363842800, 0x00007fd366008800, 0x00007fd36406c000,
-0x00007fd36408d800
+_java_thread_list=0x00007f8898c3be40, length=9, elements={
+0x00007f889b009000, 0x00007f889900d800, 0x00007f8899015000, 0x00007f8899019000,
+0x00007f8899033000, 0x00007f8899033800, 0x00007f8899816800, 0x00007f8899098800,
+0x00007f88990a3800
 }
 
 Java Threads: ( => current thread )
-=>0x00007fd36480d000 JavaThread "main" [_thread_in_vm, id=5891, stack(0x000070000066d000,0x000070000076d000)]
-  0x00007fd36383e800 JavaThread "Reference Handler" daemon [_thread_blocked, id=13571, stack(0x0000700000d82000,0x0000700000e82000)]
-  0x00007fd363841800 JavaThread "Finalizer" daemon [_thread_blocked, id=13827, stack(0x0000700000e85000,0x0000700000f85000)]
-  0x00007fd364865000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=17411, stack(0x000070000108e000,0x000070000118e000)]
-  0x00007fd364867800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=16643, stack(0x0000700001191000,0x0000700001291000)]
-  0x00007fd363842800 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=16131, stack(0x0000700001294000,0x0000700001394000)]
-  0x00007fd366008800 JavaThread "Sweeper thread" daemon [_thread_blocked, id=43267, stack(0x0000700001397000,0x0000700001497000)]
-  0x00007fd36406c000 JavaThread "Service Thread" daemon [_thread_blocked, id=42499, stack(0x000070000149a000,0x000070000159a000)]
-  0x00007fd36408d800 JavaThread "Common-Cleaner" daemon [_thread_blocked, id=22531, stack(0x00007000016a0000,0x00007000017a0000)]
+=>0x00007f889b009000 JavaThread "main" [_thread_in_vm, id=6147, stack(0x000070000353e000,0x000070000363e000)]
+  0x00007f889900d800 JavaThread "Reference Handler" daemon [_thread_blocked, id=12547, stack(0x0000700003c53000,0x0000700003d53000)]
+  0x00007f8899015000 JavaThread "Finalizer" daemon [_thread_blocked, id=18435, stack(0x0000700003d56000,0x0000700003e56000)]
+  0x00007f8899019000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=14339, stack(0x0000700003f5f000,0x000070000405f000)]
+  0x00007f8899033000 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=15875, stack(0x0000700004062000,0x0000700004162000)]
+  0x00007f8899033800 JavaThread "C1 CompilerThread0" daemon [_thread_blocked, id=14851, stack(0x0000700004165000,0x0000700004265000)]
+  0x00007f8899816800 JavaThread "Sweeper thread" daemon [_thread_blocked, id=22019, stack(0x0000700004268000,0x0000700004368000)]
+  0x00007f8899098800 JavaThread "Service Thread" daemon [_thread_blocked, id=43011, stack(0x000070000436b000,0x000070000446b000)]
+  0x00007f88990a3800 JavaThread "Common-Cleaner" daemon [_thread_blocked, id=41987, stack(0x0000700004571000,0x0000700004671000)]
 
 Other Threads:
-  0x00007fd363837000 VMThread "VM Thread" [stack: 0x0000700000c7f000,0x0000700000d7f000] [id=13059]
-  0x00007fd36487f800 WatcherThread [stack: 0x000070000159d000,0x000070000169d000] [id=22019]
-  0x00007fd36480e000 GCTaskThread "GC Thread#0" [stack: 0x0000700000770000,0x0000700000870000] [id=11523]
-  0x00007fd364839800 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000700000873000,0x0000700000973000] [id=11779]
-  0x00007fd364013800 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000700000976000,0x0000700000a76000] [id=20739]
-  0x00007fd36406a800 ConcurrentGCThread "G1 Refine#0" [stack: 0x0000700000a79000,0x0000700000b79000] [id=12547]
-  0x00007fd36406b000 ConcurrentGCThread "G1 Young RemSet Sampling" [stack: 0x0000700000b7c000,0x0000700000c7c000] [id=12803]
+  0x00007f889a030800 VMThread "VM Thread" [stack: 0x0000700003b50000,0x0000700003c50000] [id=12035]
+  0x00007f889a02e800 WatcherThread [stack: 0x000070000446e000,0x000070000456e000] [id=42755]
+  0x00007f889b015000 GCTaskThread "GC Thread#0" [stack: 0x0000700003641000,0x0000700003741000] [id=20739]
+  0x00007f889b036000 ConcurrentGCThread "G1 Main Marker" [stack: 0x0000700003744000,0x0000700003844000] [id=20227]
+  0x00007f889b037000 ConcurrentGCThread "G1 Conc#0" [stack: 0x0000700003847000,0x0000700003947000] [id=11523]
+  0x00007f889b087800 ConcurrentGCThread "G1 Refine#0" [stack: 0x000070000394a000,0x0000700003a4a000] [id=19459]
+  0x00007f889b088800 ConcurrentGCThread "G1 Young RemSet Sampling" [stack: 0x0000700003a4d000,0x0000700003b4d000] [id=18947]
 
 Threads with active compile tasks:
 
@@ -160,7 +160,7 @@ Compressed class space size: 1073741824 Address: 0x0000000800000000
 Heap:
  garbage-first heap   total 131072K, used 3072K [0x0000000780000000, 0x0000000800000000)
   region size 1024K, 4 young (4096K), 0 survivors (0K)
- Metaspace       used 5251K, capacity 5450K, committed 5632K, reserved 1056768K
+ Metaspace       used 5248K, capacity 5446K, committed 5632K, reserved 1056768K
   class space    used 449K, capacity 494K, committed 512K, reserved 1048576K
 Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=humongous(continues), CS=collection set, F=free, A=archive, TAMS=top-at-mark-start (previous, next)
 |   0|0x0000000780000000, 0x0000000780100000, 0x0000000780100000|100%|HS|  |TAMS 0x0000000780000000, 0x0000000780000000| Complete 
@@ -287,25 +287,25 @@ Heap Regions: E=young(eden), S=young(survivor), O=old, HS=humongous(starts), HC=
 | 121|0x0000000787900000, 0x0000000787900000, 0x0000000787a00000|  0%| F|  |TAMS 0x0000000787900000, 0x0000000787900000| Untracked 
 | 122|0x0000000787a00000, 0x0000000787a00000, 0x0000000787b00000|  0%| F|  |TAMS 0x0000000787a00000, 0x0000000787a00000| Untracked 
 | 123|0x0000000787b00000, 0x0000000787b00000, 0x0000000787c00000|  0%| F|  |TAMS 0x0000000787b00000, 0x0000000787b00000| Untracked 
-| 124|0x0000000787c00000, 0x0000000787cfc3a8, 0x0000000787d00000| 98%| E|  |TAMS 0x0000000787c00000, 0x0000000787c00000| Complete 
+| 124|0x0000000787c00000, 0x0000000787cfc4d8, 0x0000000787d00000| 98%| E|  |TAMS 0x0000000787c00000, 0x0000000787c00000| Complete 
 | 125|0x0000000787d00000, 0x0000000787e00000, 0x0000000787e00000|100%| E|  |TAMS 0x0000000787d00000, 0x0000000787d00000| Complete 
 | 126|0x0000000787e00000, 0x0000000787f00000, 0x0000000787f00000|100%| E|CS|TAMS 0x0000000787e00000, 0x0000000787e00000| Complete 
 | 127|0x0000000787f00000, 0x0000000788000000, 0x0000000788000000|100%| E|CS|TAMS 0x0000000787f00000, 0x0000000787f00000| Complete 
 
-Card table byte_map: [0x0000000101d99000,0x0000000102199000] _byte_map_base: 0x00000000fe199000
+Card table byte_map: [0x00000001157dc000,0x0000000115bdc000] _byte_map_base: 0x0000000111bdc000
 
-Marking Bits (Prev, Next): (CMBitMap*) 0x00007fd364831018, (CMBitMap*) 0x00007fd364831050
- Prev Bits: [0x000000011b790000, 0x000000011d790000)
- Next Bits: [0x000000011d790000, 0x000000011f790000)
+Marking Bits (Prev, Next): (CMBitMap*) 0x00007f889b02d818, (CMBitMap*) 0x00007f889b02d850
+ Prev Bits: [0x0000000115fdc000, 0x0000000117fdc000)
+ Next Bits: [0x0000000117fdc000, 0x0000000119fdc000)
 
-Polling page: 0x00000001000fb000
+Polling page: 0x000000010b7e1000
 
 Metaspace:
 
 Usage:
-  Non-class:      4.84 MB capacity,     4.69 MB ( 97%) used,   152.82 KB (  3%) free+waste,     1.31 KB ( <1%) overhead. 
+  Non-class:      4.84 MB capacity,     4.69 MB ( 97%) used,   152.09 KB (  3%) free+waste,     1.25 KB ( <1%) overhead. 
       Class:    494.00 KB capacity,   449.58 KB ( 91%) used,    43.73 KB (  9%) free+waste,   704 bytes ( <1%) overhead. 
-       Both:      5.32 MB capacity,     5.13 MB ( 96%) used,   196.55 KB (  4%) free+waste,     2.00 KB ( <1%) overhead. 
+       Both:      5.32 MB capacity,     5.13 MB ( 96%) used,   195.83 KB (  4%) free+waste,     1.94 KB ( <1%) overhead. 
 
 Virtual space:
   Non-class space:        8.00 MB reserved,       5.00 MB ( 62%) committed 
@@ -313,39 +313,39 @@ Virtual space:
              Both:        1.01 GB reserved,       5.50 MB ( <1%) committed 
 
 Chunk freelists:
-   Non-Class:  0 bytes
+   Non-Class:  4.50 KB
        Class:  2.25 KB
-        Both:  2.25 KB
+        Both:  6.75 KB
 
-CodeHeap 'non-profiled nmethods': size=120032Kb used=43Kb max_used=43Kb free=119988Kb
- bounds [0x0000000114258000, 0x00000001144c8000, 0x000000011b790000]
-CodeHeap 'profiled nmethods': size=120032Kb used=245Kb max_used=245Kb free=119786Kb
- bounds [0x000000010cd20000, 0x000000010cf90000, 0x0000000114258000]
-CodeHeap 'non-nmethods': size=5696Kb used=1017Kb max_used=1029Kb free=4678Kb
- bounds [0x000000010c790000, 0x000000010ca00000, 0x000000010cd20000]
- total_blobs=565 nmethods=188 adapters=203
+CodeHeap 'non-profiled nmethods': size=120032Kb used=44Kb max_used=44Kb free=119987Kb
+ bounds [0x0000000122b6d000, 0x0000000122ddd000, 0x000000012a0a5000]
+CodeHeap 'profiled nmethods': size=120032Kb used=242Kb max_used=242Kb free=119789Kb
+ bounds [0x000000011b635000, 0x000000011b8a5000, 0x0000000122b6d000]
+CodeHeap 'non-nmethods': size=5696Kb used=1016Kb max_used=1028Kb free=4679Kb
+ bounds [0x000000011b0a5000, 0x000000011b315000, 0x000000011b635000]
+ total_blobs=559 nmethods=184 adapters=203
  compilation: enabled
               stopped_count=0, restarted_count=0
  full_count=0
 
 Compilation events (10 events):
-Event: 0.247 Thread 0x00007fd363842800 nmethod 184 0x000000010cd5b910 code [0x000000010cd5bae0, 0x000000010cd5bde8]
-Event: 0.247 Thread 0x00007fd364867800 nmethod 183 0x0000000114262d10 code [0x0000000114262ea0, 0x0000000114262f18]
-Event: 0.247 Thread 0x00007fd363842800  185       3       java.lang.System$2::getBytesUTF8NoRepl (5 bytes)
-Event: 0.247 Thread 0x00007fd363842800 nmethod 185 0x000000010cd5bf10 code [0x000000010cd5c0e0, 0x000000010cd5c388]
-Event: 0.247 Thread 0x00007fd363842800  186       3       java.lang.StringCoding::getBytesUTF8NoRepl (13 bytes)
-Event: 0.247 Thread 0x00007fd363842800 nmethod 186 0x000000010cd5c490 code [0x000000010cd5c640, 0x000000010cd5c868]
-Event: 0.247 Thread 0x00007fd363842800  187       3       java.util.jar.JarFile::getEntry0 (24 bytes)
-Event: 0.247 Thread 0x00007fd363842800 nmethod 187 0x000000010cd5c990 code [0x000000010cd5cb80, 0x000000010cd5d108]
-Event: 0.247 Thread 0x00007fd363842800  188       3       java.util.jar.JarFile$1::<init> (10 bytes)
-Event: 0.248 Thread 0x00007fd363842800 nmethod 188 0x000000010cd5d290 code [0x000000010cd5d440, 0x000000010cd5d650]
+Event: 0.220 Thread 0x00007f8899033800  182       3       java.util.zip.ZipCoder$UTF8::getBytes (10 bytes)
+Event: 0.220 Thread 0x00007f8899033800 nmethod 182 0x000000011b66f290 code [0x000000011b66f460, 0x000000011b66f768]
+Event: 0.220 Thread 0x00007f8899033800  183       3       java.lang.System$2::getBytesUTF8NoRepl (5 bytes)
+Event: 0.220 Thread 0x00007f8899033800 nmethod 183 0x000000011b66f890 code [0x000000011b66fa60, 0x000000011b66fd08]
+Event: 0.220 Thread 0x00007f8899033800  181       3       java.lang.StringBuilder::<init> (7 bytes)
+Event: 0.220 Thread 0x00007f8899033800 nmethod 181 0x000000011b66fe10 code [0x000000011b66ffc0, 0x000000011b670148]
+Event: 0.220 Thread 0x00007f8899033800  180       3       java.lang.String::substring (58 bytes)
+Event: 0.221 Thread 0x00007f8899033800 nmethod 180 0x000000011b670210 code [0x000000011b670420, 0x000000011b670b28]
+Event: 0.221 Thread 0x00007f8899033800  184   !   3       java.util.zip.ZipFile::getEntry (73 bytes)
+Event: 0.222 Thread 0x00007f8899033800 nmethod 184 0x000000011b670d90 code [0x000000011b670fa0, 0x000000011b671688]
 
 GC Heap History (0 events):
 No events
 
 Deoptimization events (2 events):
-Event: 0.156 Thread 0x00007fd36480d000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000011425cb20 method=java.lang.String.hashCode()I @ 14 c2
-Event: 0.210 Thread 0x00007fd36480d000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000114260914 method=java.util.zip.ZipFile$Source.isMetaName([BII)Z @ 43 c2
+Event: 0.124 Thread 0x00007f889b009000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000122b71620 method=java.lang.String.hashCode()I @ 14 c2
+Event: 0.192 Thread 0x00007f889b009000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000122b75814 method=java.util.zip.ZipFile$Source.isMetaName([BII)Z @ 43 c2
 
 Classes redefined (0 events):
 No events
@@ -354,16 +354,16 @@ Internal exceptions (0 events):
 No events
 
 Events (10 events):
-Event: 0.243 loading class oracle/jdbc/driver/OracleConnection
-Event: 0.243 loading class oracle/jdbc/driver/OracleConnection done
-Event: 0.244 loading class oracle/jdbc/internal/ClientDataSupport
-Event: 0.244 loading class oracle/jdbc/internal/ClientDataSupport done
-Event: 0.246 loading class oracle/jdbc/OracleConnectionWrapper
-Event: 0.246 loading class oracle/jdbc/OracleConnectionWrapper done
-Event: 0.250 loading class java/lang/PublicMethods$Key
-Event: 0.250 loading class java/lang/PublicMethods$Key done
-Event: 0.250 loading class java/lang/Class$EnclosingMethodInfo
-Event: 0.250 loading class java/lang/Class$EnclosingMethodInfo done
+Event: 0.218 loading class oracle/jdbc/driver/OracleConnection
+Event: 0.218 loading class oracle/jdbc/driver/OracleConnection done
+Event: 0.219 loading class oracle/jdbc/internal/ClientDataSupport
+Event: 0.219 loading class oracle/jdbc/internal/ClientDataSupport done
+Event: 0.219 loading class oracle/jdbc/OracleConnectionWrapper
+Event: 0.219 loading class oracle/jdbc/OracleConnectionWrapper done
+Event: 0.222 loading class java/lang/PublicMethods$Key
+Event: 0.223 loading class java/lang/PublicMethods$Key done
+Event: 0.223 loading class java/lang/Class$EnclosingMethodInfo
+Event: 0.223 loading class java/lang/Class$EnclosingMethodInfo done
 
 
 Dynamic libraries:
@@ -604,13 +604,13 @@ Dynamic libraries:
 0x00007fff5ce56000 	/System/Library/PrivateFrameworks/KeychainCircle.framework/Versions/A/KeychainCircle
 0x00007fff37541000 	/System/Library/Frameworks/CoreBluetooth.framework/Versions/A/CoreBluetooth
 0x00007fff676bc000 	/System/Library/PrivateFrameworks/SpeechRecognitionCore.framework/Versions/A/SpeechRecognitionCore
-0x0000000100a00000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib
-0x00000001000ac000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libverify.dylib
-0x00000001000bc000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libjava.dylib
-0x00000001000ef000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libjimage.dylib
-0x0000000100145000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libzip.dylib
-0x00000001001b1000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libnio.dylib
-0x00000001001c3000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libnet.dylib
+0x000000010c000000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/server/libjvm.dylib
+0x000000010b792000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libverify.dylib
+0x000000010b7a2000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libjava.dylib
+0x000000010b7d5000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libjimage.dylib
+0x000000010b7eb000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libzip.dylib
+0x000000011a828000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libnio.dylib
+0x000000011a83a000 	/Library/Java/JavaVirtualMachines/jdk-11.0.7.jdk/Contents/Home/lib/libnet.dylib
 
 
 VM Arguments:
@@ -666,11 +666,11 @@ SIGQUIT: [libjvm.dylib+0x637c77], sa_mask[0]=11111111011111110111111111111111, s
 
 OS:uname:Darwin 19.5.0 Darwin Kernel Version 19.5.0: Tue May 26 20:41:44 PDT 2020; root:xnu-6153.121.2~2/RELEASE_X86_64 x86_64
 rlimit: STACK 8192k, CORE 0k, NPROC 1392, NOFILE 10240, AS infinity, DATA infinity, FSIZE infinity
-load average:2.04 2.16 2.13
+load average:2.17 2.53 2.64
 
 CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 61 stepping 4, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, fma
 
-Memory: 4k page, physical 8388608k(1093692k free)
+Memory: 4k page, physical 8388608k(1527556k free)
 
 vm_info: Java HotSpot(TM) 64-Bit Server VM (11.0.7+8-LTS) for bsd-amd64 JRE (11.0.7+8-LTS), built on Mar 12 2020 01:06:42 by "mach5one" with gcc 4.2.1 Compatible Apple LLVM 10.0.0 (clang-1000.11.45.5)
 

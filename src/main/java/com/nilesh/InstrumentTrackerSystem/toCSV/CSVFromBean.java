@@ -3,6 +3,7 @@ package com.nilesh.InstrumentTrackerSystem.toCSV;
 
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,10 @@ public class CSVFromBean {
 	{ 
 
 		// name of generated csv 
-		final String CSV_LOCATION = "Nothing.csv"; 
+		Calendar cal = Calendar.getInstance();
+		String calendarCSV = cal.getTime().toString();
+		calendarCSV = calendarCSV.replaceAll("\\s", "");
+		final String CSV_LOCATION = calendarCSV+".csv"; 
 //		CSVWriter csvWriter = null;
 
 		try { 
@@ -38,7 +42,7 @@ public class CSVFromBean {
 			// csv file 
 		
 			FileWriter writer = new FileWriter(CSV_LOCATION); 
-			writer.append("instLoggerId,inTime,outTime,empId,instId,entryStatus");
+			writer.append("instLoggerId,inTime,outTime,empId,instId");
 			writer.append("\n");
 			
 			// create a list of employee 
@@ -52,7 +56,6 @@ public class CSVFromBean {
 				instLogCSV.setEmpId(instLogger.getEmpId());
 				instLogCSV.setInstId(instLogger.getInstId());
 				instLogCSV.setInstLoggerId(instLogger.getInstLoggerId());
-				instLogCSV.setEntryStatus(instLogger.getEntryStatus());
 				instLogCSV.setInTime(instLogger.getInTime().getTime().toGMTString());
 				if(instLogger.getOutTime() == null) {
 					instLogCSV.setOutTime("");
@@ -62,16 +65,13 @@ public class CSVFromBean {
 				instLogCSVList.add(instLogCSV);
 			}
 
-			System.out.println(instLogList);
-			System.out.println(instLogList.get(0).getInTime().getTime());
-			
 			// Create Mapping Strategy to arrange the 
 			// column name in order 
 			ColumnPositionMappingStrategy<InstLoggerCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstLoggerCSV>(); 
 			mappingStrategy.setType(InstLoggerCSV.class); 
 
 			// Arrange column name as provided in below array. 
-			String[] columns = new String[]{ "instLoggerId","inTime","outTime","empId","instId","entryStatus"}; 
+			String[] columns = new String[]{ "instLoggerId","inTime","outTime","empId","instId"}; 
 			mappingStrategy.setColumnMapping(columns); 
 			
 			// Creating StatefulBeanToCsv object 
@@ -89,39 +89,6 @@ public class CSVFromBean {
 		} 
 	} 
 } 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//csvWriter = new CSVWriter(new FileWriter("Employee.csv"));
-//BeanToCsv bc = new BeanToCsv();
-
-////mapping of columns with their positions
-//ColumnPositionMappingStrategy mappingStrategy = 
-//		new ColumnPositionMappingStrategy();
-////Set mappingStrategy type to Employee Type
-//mappingStrategy.setType(InstLoggerEntity.class);
-////Fields in Employee Bean
-//String[] columns = new String[]{"instLoggerId","inTime","outTime","empId","instId","entryStatus"};
-////Setting the colums for mappingStrategy
-//mappingStrategy.setColumnMapping(columns);
-////Writing empList to csv file
-//bc.write(mappingStrategy,csvWriter,instLogList);
-//System.out.println("CSV File written successfully!!!");
-//
-//
-//
-//csvWriter.close();
-
 
 
 

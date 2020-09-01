@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -8,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
@@ -46,7 +49,6 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 		InstLoggerEntity dbInstLogger = entityManager.merge(theInstLogger);
 		theInstLogger.setInstLoggerId(dbInstLogger.getInstLoggerId());
-
 	}
 
 	@Override
@@ -67,13 +69,11 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		System.out.println(instLogger.get(0).getInstLoggerId());
 		
 		return instLogger;
-		//return null;
 	}
 
 	@Override
 	public List<InstLoggerEntity> findByPair(Calendar startTime, Calendar inTime, Calendar outTime, Calendar timeNow, String empId, String instId) {
 		// TODO Auto-generated method stub
-		Boolean entryStatus = true;
 		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
 		theQuery.setParameter(2, instId);
@@ -84,15 +84,11 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		if (!instLoggerList.isEmpty()) {
 	
 			System.out.println(instLoggerList.get(0).getInstLoggerId());
-			System.out.println("*******"+instLoggerList.get(0).getEntryStatus());
-			if(instLoggerList.get(0).getEntryStatus()) {
-				System.out.println("in false if condition");
-				entryStatus = false;
-			}
+
 		}
 		InstLoggerEntity instLogger = new InstLoggerEntity();
 		instLogger.setEmpId(empId);
-		instLogger.setEntryStatus(entryStatus);
+
 		instLogger.setInstId(instId);
 		instLogger.setInTime(inTime);
 		instLogger.setOutTime(outTime);
@@ -131,15 +127,9 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //        System.out.println("Total execution time to fetch result in Java in millis: "
 //               + elapsedTime/1000000);
 
-
-	}catch (NoResultException nre) {
-		// TODO Auto-generated catch block
-		System.out.println("Exception caught");
-	}
 	
 	if((instLoggerEntity==null)||(instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null)) {//and this//if ()
 		InstLoggerEntity instLogger = new InstLoggerEntity();
-		instLogger.setEntryStatus(true);
 		instLogger.setEmpId(empId);
 		instLogger.setInstId(instId);
 		instLogger.setInTime(punchingTime);
@@ -156,6 +146,22 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		updateQuery.executeUpdate();
 	}
 	
+	//|EmptyResultDataAccessException erdae
+	}catch (NoResultException nre) {
+		// TODO Auto-generated catch block
+		System.out.println("NoResultException");
+		return null;
+	}catch(DataIntegrityViolationException dive) {
+		System.out.println("DataIntegrityViolationException");
+		return null;
+	}catch(ConstraintViolationException cve) {
+		System.out.println("ConstraintViolationException");
+		return null;
+	}catch(Exception e) {
+		System.out.println("Exception caught");
+		return null;
+	}
+	
 		return theInstLoggerEntityList;
 	}
 
@@ -164,7 +170,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		// TODO Auto-generated method stub
 
 		
-		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId,entryStatus from instLogger where inTime >= CURDATE()\n" + 
+		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId from instLogger where inTime >= CURDATE()\n" + 
 				"  AND inTime < CURDATE() + INTERVAL 1 DAY",InstLoggerEntity.class);
 
 //		Calendar todayInTime = Calendar.getInstance();//new GregorianCalendar();
