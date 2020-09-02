@@ -31,6 +31,7 @@ public class CSVFromBean {
 		Calendar cal = Calendar.getInstance();
 		String calendarCSV = cal.getTime().toString();
 		calendarCSV = calendarCSV.replaceAll("\\s", "");
+		calendarCSV = calendarCSV.replaceAll(":", "");
 		final String CSV_LOCATION = calendarCSV+".csv"; 
 //		CSVWriter csvWriter = null;
 

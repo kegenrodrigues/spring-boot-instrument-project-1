@@ -105,8 +105,11 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	
 	try {
 //		long startTime = System.nanoTime();			
-		//Method 1
+
 		
+				
+				
+		//Method 1
 		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where instLoggerId = (Select MAX(instLoggerId) from instLogger where empId = ?1 and instId = ?2 GROUP BY empId,instId)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
 		theQuery.setParameter(2, instId);
