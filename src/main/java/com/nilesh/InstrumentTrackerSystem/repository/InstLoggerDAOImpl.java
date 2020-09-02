@@ -12,6 +12,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
@@ -128,41 +129,50 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //        
 //        System.out.println("Total execution time to fetch result in Java in millis: "
 //               + elapsedTime/1000000);
-
-	
-	if((instLoggerEntity==null)||(instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null)) {//and this//if ()
-		InstLoggerEntity instLogger = new InstLoggerEntity();
-		instLogger.setEmpId(empId);
-		instLogger.setInstId(instId);
-		instLogger.setInTime(punchingTime);
-		instLogger.setOutTime(null);
-		save(instLogger);
-		theInstLoggerEntityList.add(instLogger);
-	}
-	
-	else if(instLoggerEntity.getOutTime()==null){
-		Long instLoggerId = instLoggerEntity.getInstLoggerId();
-		Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1 where instLoggerId = ?2");
-		updateQuery.setParameter(1, punchingTime);
-		updateQuery.setParameter(2, instLoggerId);
-		updateQuery.executeUpdate();
-	}
-	
-	//|EmptyResultDataAccessException erdae
+		
 	}catch (NoResultException nre) {
 		// TODO Auto-generated catch block
 		System.out.println("NoResultException");
-		return null;
+	}
+//	}catch(Exception e) {
+//		System.out.println("Exception caught");
+//	}
+	
+	
+	try {
+		if((instLoggerEntity==null)||(instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null)) {//and this//if ()
+			InstLoggerEntity instLogger = new InstLoggerEntity();
+			instLogger.setEmpId(empId);
+			instLogger.setInstId(instId);
+			instLogger.setInTime(punchingTime);
+			instLogger.setOutTime(null);
+			save(instLogger);
+			theInstLoggerEntityList.add(instLogger);
+		}
+		
+		else if(instLoggerEntity.getOutTime()==null){
+			Long instLoggerId = instLoggerEntity.getInstLoggerId();
+			Query updateQuery = entityManager.createNativeQuery("UPDATE instLogger SET outTime = ?1 where instLoggerId = ?2");
+			updateQuery.setParameter(1, punchingTime);
+			updateQuery.setParameter(2, instLoggerId);
+			updateQuery.executeUpdate();
+		}
 	}catch(DataIntegrityViolationException dive) {
 		System.out.println("DataIntegrityViolationException");
 		return null;
 	}catch(ConstraintViolationException cve) {
 		System.out.println("ConstraintViolationException");
 		return null;
-	}catch(Exception e) {
-		System.out.println("Exception caught");
+	}catch(UnexpectedRollbackException ure) {
+		System.out.println("UnexpectedRollbackException occurred");
 		return null;
 	}
+//	catch(Exception e) {
+//		System.out.println("Exception caught");
+//		return null;
+//	}
+	//|EmptyResultDataAccessException erdae
+
 	
 		return theInstLoggerEntityList;
 	}
