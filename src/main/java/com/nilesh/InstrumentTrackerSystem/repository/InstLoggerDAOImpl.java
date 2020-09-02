@@ -1,5 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -7,12 +9,13 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.swing.JOptionPane;
 
-import org.hibernate.exception.ConstraintViolationException;
+//import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.UnexpectedRollbackException;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
@@ -100,6 +103,9 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	@Override
 	public List<InstLoggerEntity>  insertToTable(Calendar punchingTime, String empId, String instId) {
 		// TODO Auto-generated method stub
+		if(empId.isBlank()||instId.isBlank()) {
+			return null;
+		}
 		List<InstLoggerEntity> theInstLoggerEntityList = new ArrayList<InstLoggerEntity>();
 	
 		InstLoggerEntity instLoggerEntity = null;
@@ -108,8 +114,6 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //		long startTime = System.nanoTime();			
 
 		
-				
-				
 		//Method 1
 		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where instLoggerId = (Select MAX(instLoggerId) from instLogger where empId = ?1 and instId = ?2 GROUP BY empId,instId)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
@@ -146,7 +150,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 			instLogger.setInstId(instId);
 			instLogger.setInTime(punchingTime);
 			instLogger.setOutTime(null);
-			save(instLogger);
+			save(instLogger);//Exception can occur here
 			theInstLoggerEntityList.add(instLogger);
 		}
 		
@@ -157,23 +161,21 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 			updateQuery.setParameter(2, instLoggerId);
 			updateQuery.executeUpdate();
 		}
-	}catch(DataIntegrityViolationException dive) {
-		System.out.println("DataIntegrityViolationException");
-		return null;
-	}catch(ConstraintViolationException cve) {
-		System.out.println("ConstraintViolationException");
-		return null;
-	}catch(UnexpectedRollbackException ure) {
-		System.out.println("UnexpectedRollbackException occurred");
+	
+
+//	    if(e.getCause() != null && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
+//	        SQLIntegrityConstraintViolationException sql_violation_exception = (SQLIntegrityConstraintViolationException) e.getCause().getCause() ;
+//	        System.out.println(sql_violation_exception.getMessage());
+//	    }
+//	    if(e.getCause() != null && e.getCause().getCause() instanceof UnexpectedRollbackException) {
+//	    	UnexpectedRollbackException unexpectedRollbackException = (UnexpectedRollbackException) e.getCause().getCause();
+//	    	System.out.println(unexpectedRollbackException.getMessage());
+//	    }
+	
+	}catch(Exception e) {
+		System.out.println("Something went wrong");
 		return null;
 	}
-//	catch(Exception e) {
-//		System.out.println("Exception caught");
-//		return null;
-//	}
-	//|EmptyResultDataAccessException erdae
-
-	
 		return theInstLoggerEntityList;
 	}
 
