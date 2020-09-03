@@ -1,6 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem.gui;
 
 import java.awt.Container;
+import java.awt.Frame;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +30,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 
 	@Autowired
 	CSVFromBean theCSVFromBean;
-
+	Frame frame;
 	Container container = getContentPane();
 	JLabel employeeId = new JLabel("EMPLOYEE ID");
 	JLabel instrumentId = new JLabel("INSTRUMENT ID");
@@ -42,6 +43,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 	JOptionPane jOptionPane = new JOptionPane();
 
 	HomeFrame() {
+		frame = this;
 		setLayoutManager();
 		setLocationAndSize();
 		addComponentsToContainer();
@@ -78,6 +80,12 @@ public class HomeFrame extends JFrame implements ActionListener {
 		fetchButton.addActionListener(this);
 	}
 
+	public void stopIt() {
+		JOptionPane.showMessageDialog(frame, "Employee or Instrument not present in database", "Invalid Input",
+				JOptionPane.ERROR_MESSAGE);
+	}
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String emploId = "";
@@ -91,6 +99,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 			instruId = instIdField.getText();
 
 			instLogList = theInstLoggerServiceImpl.insertToTable(timeNow, emploId, instruId);
+			System.out.println("Back in homeframe");
 			if (instLogList == null) {
 				JOptionPane.showMessageDialog(this, "Employee or Instrument not present in database", "Invalid Input",
 						JOptionPane.ERROR_MESSAGE);

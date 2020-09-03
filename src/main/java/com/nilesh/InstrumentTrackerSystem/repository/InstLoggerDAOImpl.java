@@ -8,23 +8,26 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
+import javax.transaction.Transactional;
 
 //import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 //import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
+import com.nilesh.InstrumentTrackerSystem.gui.HomeFrame;
 
 @Repository
 public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 	@Autowired
 	private EntityManager entityManager;
+	
+	@Autowired
+	HomeFrame homeframe;
 	
 	public InstLoggerDAOImpl(EntityManager theEntityManager) {
 		entityManager = theEntityManager;
@@ -48,6 +51,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
+	@Transactional
 	public void save(InstLoggerEntity theInstLogger) {
 
 		InstLoggerEntity dbInstLogger = entityManager.merge(theInstLogger);
@@ -172,8 +176,11 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 //	    	System.out.println(unexpectedRollbackException.getMessage());
 //	    }
 	
-	}catch(Exception e) {
-		System.out.println("Something went wrong");
+	}catch(PersistenceException pe) {
+		homeframe.stopIt();
+		return null;
+	}
+	catch(Exception e) {
 		return null;
 	}
 		return theInstLoggerEntityList;
