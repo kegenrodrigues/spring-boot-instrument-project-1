@@ -1,6 +1,7 @@
 package com.nilesh.InstrumentTrackerSystem.toCSV;
 
 
+import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,7 +25,7 @@ public class CSVFromBean {
 	InstLoggerServiceImpl instLoggerServiceImpl;
 	
 	@SuppressWarnings("deprecation")
-	public void fetchReport() 
+	public void fetchReport(String path) 
 	{ 
 
 		// name of generated csv 
@@ -32,8 +33,11 @@ public class CSVFromBean {
 		String calendarCSV = cal.getTime().toString();
 		calendarCSV = calendarCSV.replaceAll("\\s", "");
 		calendarCSV = calendarCSV.replaceAll(":", "");
-		final String CSV_LOCATION = calendarCSV+".csv"; 
-//		CSVWriter csvWriter = null;
+		
+		
+		
+		final String CSV_LOCATION = path+File.separator+calendarCSV+".csv";
+
 
 		try { 
 

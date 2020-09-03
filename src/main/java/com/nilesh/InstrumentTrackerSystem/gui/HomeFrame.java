@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,6 +31,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 	@Autowired
 	CSVFromBean theCSVFromBean;
 
+	JFileChooser chooser = new JFileChooser();
 	Container container = getContentPane();
 	JLabel employeeId = new JLabel("EMPLOYEE ID");
 	JLabel instrumentId = new JLabel("INSTRUMENT ID");
@@ -82,6 +84,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String emploId = "";
 		String instruId = "";
+		String path = "";
 		List<InstLoggerEntity> instLogList = null;
 		if (e.getSource() == punchButton) {
 			Calendar timeNow = Calendar.getInstance();
@@ -103,8 +106,14 @@ public class HomeFrame extends JFrame implements ActionListener {
 			instIdField.setText("");
 		}
 		if (e.getSource() == fetchButton) {
-			theCSVFromBean.fetchReport();
-			JOptionPane.showMessageDialog(this, "File Downloaded");
+			
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			
+			chooser.setDialogTitle("Select folder please");
+			chooser.showSaveDialog(null);
+	        path = chooser.getSelectedFile().toString();
+	        theCSVFromBean.fetchReport(path);
+			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
 		}
 	}
 }
