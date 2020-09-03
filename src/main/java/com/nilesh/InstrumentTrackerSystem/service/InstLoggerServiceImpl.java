@@ -3,10 +3,9 @@ package com.nilesh.InstrumentTrackerSystem.service;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.repository.InstLoggerDAOImpl;
