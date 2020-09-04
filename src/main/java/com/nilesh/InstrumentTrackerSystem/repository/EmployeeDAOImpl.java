@@ -80,18 +80,9 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 	
 	@Transactional
 	public void insertFromCSV(File file) {
-		//entityManager.createQuery("LOAD DATA INFILE :fileName INTO TABLE test").setParameter("fileName", "C:\\samples\\test\\abcd.csv").executeUpdate();
-		
-		Query query1 = entityManager.createNativeQuery("delete from employee");
-		query1.executeUpdate();
-		
-		Query query2 = entityManager.createNativeQuery("insert into database");
-		
-//		Query query2 = entityManager.createNativeQuery("LOAD DATA LOCAL INFILE :fileName INTO TABLE employee");
-//		query2.setParameter("fileName", file.getPath());
-//		query2.executeUpdate();
-//		//session.createSQLQuery("LOAD DATA INFILE :filename INTO TABLE testtable (text,price)").setString("filename", "/path/to/MyFile.csv").executeUpdate();
-		
+		Query theQuery = entityManager.createNativeQuery("LOAD DATA LOCAL INFILE :fileName INTO TABLE employee");
+		theQuery.setParameter("fileName", file.getPath());
+		theQuery.executeUpdate();	
 	}
 
 	public List<EmployeeEntity> fetchEmployeeList() {
