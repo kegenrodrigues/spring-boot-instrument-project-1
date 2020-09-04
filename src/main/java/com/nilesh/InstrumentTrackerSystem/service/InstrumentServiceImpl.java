@@ -44,4 +44,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 
 	}
 
+	public List<InstrumentEntity> fetchInstrumentList() {
+		// TODO Auto-generated method stub
+		return theInstrumentDAOImpl.fetchInstrumentList();
+	}
+
 }

@@ -87,13 +87,10 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
 	public List<EmployeeEntity> fetchEmployeeList() {
 		// TODO Auto-generated method stub
-
-		
+	
 		Query theQuery = entityManager.createNativeQuery("SELECT empId from employee",EmployeeEntity.class);
 		@SuppressWarnings("unchecked")
-		List<EmployeeEntity> empList = (List<EmployeeEntity>)theQuery.getResultList();
-
-			      
+		List<EmployeeEntity> empList = (List<EmployeeEntity>)theQuery.getResultList();     
 		return empList;
 	}
 	

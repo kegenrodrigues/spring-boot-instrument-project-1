@@ -50,6 +50,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 	JButton uploadEmployees = new JButton("UPLOAD EMPLOYEE");
 	JButton uploadInstruments = new JButton("UPLOAD INSTRUMENT");
 	JButton fetchEmployees = new JButton("FETCH EMPLOYEES");
+	JButton fetchInstruments = new JButton("FETCH INSTRUMENTS");
 
 	HomeFrame() {
 		setLayoutManager();
@@ -69,10 +70,11 @@ public class HomeFrame extends JFrame implements ActionListener {
 		instIdField.setBounds(150, 220, 150, 30);
 		punchButton.setBounds(50, 300, 100, 30);
 		resetButton.setBounds(200, 300, 100, 30);
-		fetchButton.setBounds(150, 360, 100, 30);
+		fetchButton.setBounds(50, 360, 100, 30);
 		uploadEmployees.setBounds(50, 420, 200, 30);
 		uploadInstruments.setBounds(50, 480, 200, 30);
 		fetchEmployees.setBounds(50, 510, 200, 30);
+		fetchInstruments.setBounds(50, 550, 200, 30);
 	}
 
 	public void addComponentsToContainer() {
@@ -86,6 +88,8 @@ public class HomeFrame extends JFrame implements ActionListener {
 		container.add(uploadEmployees);
 		container.add(uploadInstruments);
 		container.add(fetchEmployees);
+		container.add(fetchInstruments);
+		
 	}
 
 	public void addActionEvent() {
@@ -95,6 +99,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 		uploadEmployees.addActionListener(this);
 		uploadInstruments.addActionListener(this);
 		fetchEmployees.addActionListener(this);
+		fetchInstruments.addActionListener(this);
 	}
 
 	@Override
@@ -128,6 +133,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 			chooser.setDialogTitle("Select folder to Download");
 			chooser.showSaveDialog(null);
 	        path = chooser.getSelectedFile().toString();
+	        //System.out.println("Path is "+path);
 	        theCSVFromBean.fetchReport(path);
 			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
 		}
@@ -156,8 +162,13 @@ public class HomeFrame extends JFrame implements ActionListener {
 	        theCSVFromBean.fetchEmployees(path);
 			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
 		}
-		
-		
-		
+		if(e.getSource()==fetchInstruments) {
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			chooser.setDialogTitle("Select folder to Download");
+			chooser.showSaveDialog(null);
+	        path = chooser.getSelectedFile().toString();
+	        theCSVFromBean.fetchInstruments(path);
+			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+		}
 	}
 }

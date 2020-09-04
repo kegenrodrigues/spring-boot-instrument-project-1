@@ -1,4 +1,4 @@
-package com.nilesh.InstrumentTrackerSystem.entity;
+package com.nilesh.InstrumentTrackerSystem.csvBeans;
 
 public class EmployeeCSV {
 	public String empId;
