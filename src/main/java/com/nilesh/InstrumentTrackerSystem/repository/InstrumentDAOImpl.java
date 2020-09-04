@@ -1,10 +1,15 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+import java.io.File;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
 
 @Repository
@@ -54,4 +59,10 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 		return instList;
 	}
 
+	@Transactional
+	public void insertFromCSV(File file) {
+		Query theQuery = entityManager.createNativeQuery("LOAD DATA LOCAL INFILE :fileName INTO TABLE instrument");
+		theQuery.setParameter("fileName", file.getPath());
+		theQuery.executeUpdate();
+	}
 }

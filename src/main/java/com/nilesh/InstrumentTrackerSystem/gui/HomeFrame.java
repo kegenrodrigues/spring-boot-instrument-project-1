@@ -145,15 +145,24 @@ public class HomeFrame extends JFrame implements ActionListener {
 			int result = chooser.showOpenDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION) {
 			    File selectedFile = chooser.getSelectedFile();
-			    csvDatabase.csvToDatabase(selectedFile);
+			    csvDatabase.csvToEmpDatabase(selectedFile);
 			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
 			}
 			
 		}
 		
 		if(e.getSource()==uploadInstruments) {
-
+			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			//fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			chooser.setDialogTitle("Select Instruments CSV");
+			int result = chooser.showOpenDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION) {
+			    File selectedFile = chooser.getSelectedFile();
+			    csvDatabase.csvToInstDatabase(selectedFile);
+			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			}
 		}
+		
 		if(e.getSource()==fetchEmployees) {
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			chooser.setDialogTitle("Select folder to Download");
