@@ -54,5 +54,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 		stringList.add("Whatsup");
 		return stringList;
 	}
+
+	public List<EmployeeEntity> fetchEmployeeList() {
+		// TODO Auto-generated method stub
+		return employeeDAOImpl.fetchEmployeeList();
+	}
+	
+	
 	
 }

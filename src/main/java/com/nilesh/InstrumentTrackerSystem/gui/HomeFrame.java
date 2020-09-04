@@ -4,6 +4,7 @@ import java.awt.Container;
 import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Calendar;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Component;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.service.InstLoggerServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.toCSV.CSVFromBean;
+import com.nilesh.InstrumentTrackerSystem.toCSV.CsvDatabase;
 
 @SuppressWarnings("serial")
 @Component
@@ -30,6 +32,9 @@ public class HomeFrame extends JFrame implements ActionListener {
 
 	@Autowired
 	CSVFromBean theCSVFromBean;
+	
+	@Autowired
+	CsvDatabase csvDatabase;
 
 	JFileChooser chooser = new JFileChooser();
 	Container container = getContentPane();
@@ -42,6 +47,9 @@ public class HomeFrame extends JFrame implements ActionListener {
 	JButton fetchButton = new JButton("FETCH");
 	TextArea textArea = new TextArea();
 	JOptionPane jOptionPane = new JOptionPane();
+	JButton uploadEmployees = new JButton("UPLOAD EMPLOYEE");
+	JButton uploadInstruments = new JButton("UPLOAD INSTRUMENT");
+	JButton fetchEmployees = new JButton("FETCH EMPLOYEES");
 
 	HomeFrame() {
 		setLayoutManager();
@@ -62,6 +70,9 @@ public class HomeFrame extends JFrame implements ActionListener {
 		punchButton.setBounds(50, 300, 100, 30);
 		resetButton.setBounds(200, 300, 100, 30);
 		fetchButton.setBounds(150, 360, 100, 30);
+		uploadEmployees.setBounds(50, 420, 200, 30);
+		uploadInstruments.setBounds(50, 480, 200, 30);
+		fetchEmployees.setBounds(50, 510, 200, 30);
 	}
 
 	public void addComponentsToContainer() {
@@ -72,12 +83,18 @@ public class HomeFrame extends JFrame implements ActionListener {
 		container.add(punchButton);
 		container.add(resetButton);
 		container.add(fetchButton);
+		container.add(uploadEmployees);
+		container.add(uploadInstruments);
+		container.add(fetchEmployees);
 	}
 
 	public void addActionEvent() {
 		punchButton.addActionListener(this);
 		resetButton.addActionListener(this);
 		fetchButton.addActionListener(this);
+		uploadEmployees.addActionListener(this);
+		uploadInstruments.addActionListener(this);
+		fetchEmployees.addActionListener(this);
 	}
 
 	@Override
@@ -108,12 +125,39 @@ public class HomeFrame extends JFrame implements ActionListener {
 		if (e.getSource() == fetchButton) {
 			
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			
-			chooser.setDialogTitle("Select folder please");
+			chooser.setDialogTitle("Select folder to Download");
 			chooser.showSaveDialog(null);
 	        path = chooser.getSelectedFile().toString();
 	        theCSVFromBean.fetchReport(path);
 			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
 		}
+		
+		if(e.getSource()==uploadEmployees) {
+			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			//fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			chooser.setDialogTitle("Select Employees CSV");
+			int result = chooser.showOpenDialog(this);
+			if (result == JFileChooser.APPROVE_OPTION) {
+			    File selectedFile = chooser.getSelectedFile();
+			    csvDatabase.csvToDatabase(selectedFile);
+			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			}
+			
+		}
+		
+		if(e.getSource()==uploadInstruments) {
+
+		}
+		if(e.getSource()==fetchEmployees) {
+			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			chooser.setDialogTitle("Select folder to Download");
+			chooser.showSaveDialog(null);
+	        path = chooser.getSelectedFile().toString();
+	        theCSVFromBean.fetchEmployees(path);
+			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+		}
+		
+		
+		
 	}
 }
