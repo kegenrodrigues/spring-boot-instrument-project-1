@@ -58,9 +58,9 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 
 	@Override
 	@Transactional
-	public List<InstLoggerEntity> unReturnedItems(Calendar requestDate) {
+	public List<InstLoggerEntity> unReturnedItems() {
 		// TODO Auto-generated method stub
-		return theInstLoggerDAOImpl.unReturnedItems(requestDate);
+		return theInstLoggerDAOImpl.unReturnedItems();
 	}
 
 }

@@ -40,6 +40,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 
     public void setLayoutManager() {
         container.setLayout(null);
+        container.setBackground(new java.awt.Color(190, 190, 190));
     }
 
     public void setLocationAndSize() {

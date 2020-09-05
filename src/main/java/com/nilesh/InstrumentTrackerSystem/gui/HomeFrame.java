@@ -43,14 +43,13 @@ public class HomeFrame extends JFrame implements ActionListener {
 	JTextField empIdField = new JTextField();
 	JTextField instIdField = new JTextField();
 	JButton punchButton = new JButton("PUNCH");
-	JButton resetButton = new JButton("RESET");
-	JButton fetchButton = new JButton("FETCH");
+	JButton downloadButton = new JButton("DOWNLOAD");
 	TextArea textArea = new TextArea();
 	JOptionPane jOptionPane = new JOptionPane();
-	JButton uploadEmployees = new JButton("UPLOAD EMPLOYEE");
-	JButton uploadInstruments = new JButton("UPLOAD INSTRUMENT");
-	JButton fetchEmployees = new JButton("FETCH EMPLOYEES");
-	JButton fetchInstruments = new JButton("FETCH INSTRUMENTS");
+	JButton uploadEmployees = new JButton("UPLOAD EMP");
+	JButton uploadInstruments = new JButton("UPLOAD INST");
+	JButton fetchEmployees = new JButton("FETCH EMP");
+	JButton fetchInstruments = new JButton("FETCH INST");
 
 	HomeFrame() {
 		setLayoutManager();
@@ -61,6 +60,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 
 	public void setLayoutManager() {
 		container.setLayout(null);
+		container.setBackground(new java.awt.Color(190, 190, 190));
 	}
 
 	public void setLocationAndSize() {
@@ -68,13 +68,12 @@ public class HomeFrame extends JFrame implements ActionListener {
 		instrumentId.setBounds(50, 220, 100, 30);
 		empIdField.setBounds(150, 150, 150, 30);
 		instIdField.setBounds(150, 220, 150, 30);
-		punchButton.setBounds(50, 300, 100, 30);
-		resetButton.setBounds(200, 300, 100, 30);
-		fetchButton.setBounds(50, 360, 100, 30);
-		uploadEmployees.setBounds(50, 420, 200, 30);
-		uploadInstruments.setBounds(50, 480, 200, 30);
-		fetchEmployees.setBounds(50, 510, 200, 30);
-		fetchInstruments.setBounds(50, 550, 200, 30);
+		punchButton.setBounds(50, 300, 120, 30);
+		downloadButton.setBounds(200, 300, 120, 30);
+		uploadEmployees.setBounds(50, 350, 120, 30);
+		uploadInstruments.setBounds(200, 350, 120, 30);
+		fetchEmployees.setBounds(50, 400, 120, 30);
+		fetchInstruments.setBounds(200, 400, 120, 30);
 	}
 
 	public void addComponentsToContainer() {
@@ -83,8 +82,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 		container.add(empIdField);
 		container.add(instIdField);
 		container.add(punchButton);
-		container.add(resetButton);
-		container.add(fetchButton);
+		container.add(downloadButton);
 		container.add(uploadEmployees);
 		container.add(uploadInstruments);
 		container.add(fetchEmployees);
@@ -94,8 +92,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 
 	public void addActionEvent() {
 		punchButton.addActionListener(this);
-		resetButton.addActionListener(this);
-		fetchButton.addActionListener(this);
+		downloadButton.addActionListener(this);
 		uploadEmployees.addActionListener(this);
 		uploadInstruments.addActionListener(this);
 		fetchEmployees.addActionListener(this);
@@ -137,12 +134,7 @@ public class HomeFrame extends JFrame implements ActionListener {
 			
 		}
 		
-		if (e.getSource() == resetButton) {
-			empIdField.setText("");
-			instIdField.setText("");
-		}
-		
-		if (e.getSource() == fetchButton) {
+		if (e.getSource() == downloadButton) {
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			chooser.setDialogTitle("Select folder to Download");
 			chooser.showSaveDialog(null);

@@ -76,7 +76,6 @@ public class CSVFromBean {
 			writer.close(); 
 	} 
 	
-	
 	public void fetchEmployees(String storePath) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
 		String CSV_LOCATION = PathHelperGuide.provideFullPath(storePath);
 	

@@ -11,5 +11,5 @@ public interface InstLoggerService {
 	public void deleteById(Long instLoggerId);
 	public List<InstLoggerEntity> insertToTable(Calendar punchingTime,String empId, String instId);	
 	public List<InstLoggerEntity> fetchListFor();	
-	public List<InstLoggerEntity> unReturnedItems(Calendar requestDate);
+	public List<InstLoggerEntity> unReturnedItems();
 }

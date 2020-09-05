@@ -135,9 +135,14 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public List<InstLoggerEntity> unReturnedItems(Calendar requestDate) {
-		
-		return null;
+	public List<InstLoggerEntity> unReturnedItems() {
+		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,empId,instId from instLogger where inTime >= CURDATE()\n" + 
+				"  AND inTime < CURDATE() + INTERVAL 1 DAY and outTime IS NULL",InstLoggerEntity.class);
+
+		@SuppressWarnings("unchecked")
+		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)todaysList.getResultList();
+	      
+		return instLogger;
 	}
 
 }

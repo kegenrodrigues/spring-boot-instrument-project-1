@@ -19,7 +19,8 @@ public class MainPanel {
 	InstrumentEntity instrument;
 	
 	public void go() {
-
+		
+		//homeFrame.setBackground(new java.awt.Color(79, 141, 151));
         homeFrame.setTitle("Home Page");
         homeFrame.setVisible(true);
         homeFrame.setBounds(10, 10, 370, 600);
