@@ -1,6 +1,5 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
-
 import java.util.Calendar;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public interface InstLoggerDAO{
 	public InstLoggerEntity findById(Long instLoggerId);
 	public void save(InstLoggerEntity theInstLogger);
 	public void deleteById(Long instLoggerId);
-	public List<InstLoggerEntity> findByPair(String empId, String instId);
-	public List<InstLoggerEntity> findAll(Calendar startTime,Calendar inTime,Calendar timeNow, String empId,String instId);
-	
+	public List<InstLoggerEntity> insertToTable(Calendar punchingTime,String empId, String instId);
+	public List<InstLoggerEntity> fetchListFor();
+	public List<InstLoggerEntity> unReturnedItems();
 }

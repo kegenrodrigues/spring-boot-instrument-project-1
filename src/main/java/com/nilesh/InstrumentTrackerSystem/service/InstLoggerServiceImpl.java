@@ -1,11 +1,10 @@
 package com.nilesh.InstrumentTrackerSystem.service;
 
+import java.util.Calendar;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 import com.nilesh.InstrumentTrackerSystem.repository.InstLoggerDAOImpl;
 
@@ -13,8 +12,7 @@ import com.nilesh.InstrumentTrackerSystem.repository.InstLoggerDAOImpl;
 public class InstLoggerServiceImpl implements InstLoggerService {
 
 	@Autowired
-	private  InstLoggerDAOImpl theInstLoggerDAOImpl;
-	
+	private InstLoggerDAOImpl theInstLoggerDAOImpl;
 	
 	@Override
 	@Transactional
@@ -46,10 +44,23 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 
 	@Override
 	@Transactional
-	public List<InstLoggerEntity> findByPair(String empId, String instId) {
+	public List<InstLoggerEntity> insertToTable(Calendar punchingTime, String empId, String instId) {
 		// TODO Auto-generated method stub
-		return theInstLoggerDAOImpl.findByPair(empId, instId);
+		return theInstLoggerDAOImpl.insertToTable(punchingTime, empId, instId);
 	}
-	
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> fetchListFor() {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.fetchListFor();
+	}
+
+	@Override
+	@Transactional
+	public List<InstLoggerEntity> unReturnedItems() {
+		// TODO Auto-generated method stub
+		return theInstLoggerDAOImpl.unReturnedItems();
+	}
 
 }
