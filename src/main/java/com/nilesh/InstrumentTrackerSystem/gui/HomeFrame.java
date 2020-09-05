@@ -102,12 +102,16 @@ public class HomeFrame extends JFrame implements ActionListener {
 		fetchInstruments.addActionListener(this);
 	}
 
+	//MAKE INNER CLASSES AND OPTIMIZE CODE
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
 		String emploId = "";
 		String instruId = "";
 		String path = "";
 		List<InstLoggerEntity> instLogList = null;
+		
+
 		if (e.getSource() == punchButton) {
 			Calendar timeNow = Calendar.getInstance();
 			timeNow.getTime();
@@ -115,51 +119,70 @@ public class HomeFrame extends JFrame implements ActionListener {
 			emploId = empIdField.getText();
 			instruId = instIdField.getText();
 
+		
 			instLogList = theInstLoggerServiceImpl.insertToTable(timeNow, emploId, instruId);
-			if (instLogList == null) {
+			
+			if(emploId.isEmpty() || instruId.isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Employee and/or Instrument ID fields cannot be blank", "Invalid Input",
+						JOptionPane.ERROR_MESSAGE);
+			}else if (instLogList == null) {
 				JOptionPane.showMessageDialog(this, "Employee or Instrument not present in database", "Invalid Input",
 						JOptionPane.ERROR_MESSAGE);
 			} else {
 				JOptionPane.showMessageDialog(this, "Successfully inserted in database.");
+
 			}
+			empIdField.setText("");
+			instIdField.setText("");
+			
 		}
+		
 		if (e.getSource() == resetButton) {
 			empIdField.setText("");
 			instIdField.setText("");
 		}
+		
 		if (e.getSource() == fetchButton) {
-			
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			chooser.setDialogTitle("Select folder to Download");
 			chooser.showSaveDialog(null);
-	        path = chooser.getSelectedFile().toString();
-	        //System.out.println("Path is "+path);
-	        theCSVFromBean.fetchReport(path);
-			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+			path = chooser.getSelectedFile().toString();
+	        try {
+	        	theCSVFromBean.fetchReport(path);
+				JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(this, "Check the path and try again later.");
+			}
 		}
 		
 		if(e.getSource()==uploadEmployees) {
 			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			//fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			chooser.setDialogTitle("Select Employees CSV");
 			int result = chooser.showOpenDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION) {
 			    File selectedFile = chooser.getSelectedFile();
-			    csvDatabase.csvToEmpDatabase(selectedFile);
-			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			    try {
+					csvDatabase.csvToEmpDatabase(selectedFile);
+					JOptionPane.showMessageDialog(this, "Employee(s) saved successfully in DB");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(this, "Could not save to DB. Check CSV and try again later.");
+				}
+			    
 			}
-			
 		}
 		
 		if(e.getSource()==uploadInstruments) {
 			chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			//fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			chooser.setDialogTitle("Select Instruments CSV");
 			int result = chooser.showOpenDialog(this);
 			if (result == JFileChooser.APPROVE_OPTION) {
 			    File selectedFile = chooser.getSelectedFile();
-			    csvDatabase.csvToInstDatabase(selectedFile);
-			    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+			    try {
+					csvDatabase.csvToInstDatabase(selectedFile);
+					JOptionPane.showMessageDialog(this, "Instrument(s) saved successfully in DB");
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(this, "Could not save to DB. Check CSV and try again later.");
+				}
 			}
 		}
 		
@@ -168,16 +191,28 @@ public class HomeFrame extends JFrame implements ActionListener {
 			chooser.setDialogTitle("Select folder to Download");
 			chooser.showSaveDialog(null);
 	        path = chooser.getSelectedFile().toString();
-	        theCSVFromBean.fetchEmployees(path);
-			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+	        try {
+				theCSVFromBean.fetchEmployees(path);
+				JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(this, "Check the path and try again later.");
+			}
+			
 		}
+		
 		if(e.getSource()==fetchInstruments) {
 			chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			chooser.setDialogTitle("Select folder to Download");
 			chooser.showSaveDialog(null);
 	        path = chooser.getSelectedFile().toString();
-	        theCSVFromBean.fetchInstruments(path);
-			JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+	        try {
+				theCSVFromBean.fetchInstruments(path);
+				JOptionPane.showMessageDialog(this, "File Downloaded to "+path);
+			} catch (Exception e1) {
+				JOptionPane.showMessageDialog(this, "Check the path and try again later.");
+			}
+			
 		}
 	}
+	
 }

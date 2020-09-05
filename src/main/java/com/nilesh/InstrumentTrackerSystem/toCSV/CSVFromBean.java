@@ -1,15 +1,11 @@
 package com.nilesh.InstrumentTrackerSystem.toCSV;
 
-
-import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import com.nilesh.InstrumentTrackerSystem.csvBeans.EmployeeCSV;
 import com.nilesh.InstrumentTrackerSystem.csvBeans.InstLoggerCSV;
 import com.nilesh.InstrumentTrackerSystem.csvBeans.InstrumentCSV;
@@ -19,10 +15,12 @@ import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
 import com.nilesh.InstrumentTrackerSystem.service.EmployeeServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.service.InstLoggerServiceImpl;
 import com.nilesh.InstrumentTrackerSystem.service.InstrumentServiceImpl;
+import com.nilesh.InstrumentTrackerSystem.utility.PathHelperGuide;
 import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
-
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 
 @Component
 public class CSVFromBean { 
@@ -37,17 +35,10 @@ public class CSVFromBean {
 	InstrumentServiceImpl instrumentServiceImpl;
 	
 	@SuppressWarnings("deprecation")
-	public void fetchReport(String storePath) 
+	public void fetchReport(String storePath) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException 
 	{ 
-		Calendar cal = Calendar.getInstance();
-		String calendarCSV = cal.getTime().toString();
-		calendarCSV = calendarCSV.replaceAll("\\s", "");
-		calendarCSV = calendarCSV.replaceAll(":", "");	
-		
-		String CSV_LOCATION = storePath+File.separator+calendarCSV+".csv";
-		System.out.println(CSV_LOCATION);
+		String CSV_LOCATION = PathHelperGuide.provideFullPath(storePath);
 
-		try { 
 			FileWriter writer = new FileWriter(CSV_LOCATION); 
 			writer.append("instLoggerId,inTime,outTime,empId,instId");
 			writer.append("\n");
@@ -70,7 +61,6 @@ public class CSVFromBean {
 				}
 				instLogCSVList.add(instLogCSV);
 			}
-			System.out.println(instLogCSVList);
 
 			ColumnPositionMappingStrategy<InstLoggerCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstLoggerCSV>(); 
 			mappingStrategy.setType(InstLoggerCSV.class); 
@@ -84,92 +74,72 @@ public class CSVFromBean {
 			beanWriter.write(instLogCSVList); 
 
 			writer.close(); 
-		} 
-		catch (Exception e) { 
-			e.printStackTrace(); 
-		} 
 	} 
 	
 	
-	public void fetchEmployees(String storePath) {
-		Calendar cal = Calendar.getInstance();
-		String calendarCSV = cal.getTime().toString();
-		calendarCSV = calendarCSV.replaceAll("\\s", "");
-		calendarCSV = calendarCSV.replaceAll(":", "");
-		String CSV_LOCATION = storePath+File.separator+calendarCSV+".csv";
-		System.out.println(CSV_LOCATION);
-		try { 
+	public void fetchEmployees(String storePath) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+		String CSV_LOCATION = PathHelperGuide.provideFullPath(storePath);
+	
+		FileWriter writer = new FileWriter(CSV_LOCATION); 
+		writer.append("empId");
+		writer.append("\n");
+		 
+		List<EmployeeEntity> empList = new ArrayList<EmployeeEntity>(); 
+		empList = employeeServiceImpl.fetchEmployeeList();
+		
+		List<EmployeeCSV> employeeCSVList = new ArrayList<EmployeeCSV>();
+		
+		for(EmployeeEntity empEnt: empList) {
+			EmployeeCSV employeeCSV = new EmployeeCSV();
+			employeeCSV.setEmpId(empEnt.getEmpId());
+			employeeCSVList.add(employeeCSV);
+		}
+
+		ColumnPositionMappingStrategy<EmployeeCSV> mappingStrategy= new ColumnPositionMappingStrategy<EmployeeCSV>(); 
+		mappingStrategy.setType(EmployeeCSV.class); 
+
+		String[] columns = new String[]{ "empId"}; 
+		mappingStrategy.setColumnMapping(columns); 
+		
+		StatefulBeanToCsvBuilder<EmployeeCSV> builder = new StatefulBeanToCsvBuilder<EmployeeCSV>(writer); 
+		StatefulBeanToCsv<EmployeeCSV> beanWriter = builder.withMappingStrategy(mappingStrategy).build(); 
+
+		beanWriter.write(employeeCSVList); 
+
+		writer.close(); 
+		
+	}
+		public void fetchInstruments(String storePath) throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
+			String CSV_LOCATION = PathHelperGuide.provideFullPath(storePath);
+
 			FileWriter writer = new FileWriter(CSV_LOCATION); 
-			writer.append("empId");
+			writer.append("instId");
 			writer.append("\n");
 			 
-			List<EmployeeEntity> empList = new ArrayList<EmployeeEntity>(); 
-			empList = employeeServiceImpl.fetchEmployeeList();
+			List<InstrumentEntity> instList = new ArrayList<InstrumentEntity>(); 
+			instList = instrumentServiceImpl.fetchInstrumentList();
 			
-			List<EmployeeCSV> employeeCSVList = new ArrayList<EmployeeCSV>();
+			List<InstrumentCSV> instrumentCSVList = new ArrayList<InstrumentCSV>();
 			
-			for(EmployeeEntity empEnt: empList) {
-				EmployeeCSV employeeCSV = new EmployeeCSV();
-				employeeCSV.setEmpId(empEnt.getEmpId());
-				employeeCSVList.add(employeeCSV);
+			for(InstrumentEntity instEnt: instList) {
+				InstrumentCSV instrumentCSV = new InstrumentCSV();
+				instrumentCSV.setInstId(instEnt.getInstId());
+				instrumentCSVList.add(instrumentCSV);
 			}
 
-			ColumnPositionMappingStrategy<EmployeeCSV> mappingStrategy= new ColumnPositionMappingStrategy<EmployeeCSV>(); 
-			mappingStrategy.setType(EmployeeCSV.class); 
+			ColumnPositionMappingStrategy<InstrumentCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstrumentCSV>(); 
+			mappingStrategy.setType(InstrumentCSV.class); 
 
-			String[] columns = new String[]{ "empId"}; 
+			String[] columns = new String[]{ "instId"}; 
 			mappingStrategy.setColumnMapping(columns); 
 			
-			StatefulBeanToCsvBuilder<EmployeeCSV> builder = new StatefulBeanToCsvBuilder<EmployeeCSV>(writer); 
-			StatefulBeanToCsv<EmployeeCSV> beanWriter = builder.withMappingStrategy(mappingStrategy).build(); 
+			StatefulBeanToCsvBuilder<InstrumentCSV> builder = new StatefulBeanToCsvBuilder<InstrumentCSV>(writer); 
+			StatefulBeanToCsv<InstrumentCSV> beanWriter = builder.withMappingStrategy(mappingStrategy).build(); 
 
-			beanWriter.write(employeeCSVList); 
+			beanWriter.write(instrumentCSVList); 
 
 			writer.close(); 
-		} 
-		catch (Exception e) { 
-			e.printStackTrace(); 
-		} 
-	}
-		public void fetchInstruments(String storePath) {
-			Calendar cal = Calendar.getInstance();
-			String calendarCSV = cal.getTime().toString();
-			calendarCSV = calendarCSV.replaceAll("\\s", "");
-			calendarCSV = calendarCSV.replaceAll(":", "");
-			String CSV_LOCATION = storePath+File.separator+calendarCSV+".csv";
-			System.out.println(CSV_LOCATION);
-			try { 
-				FileWriter writer = new FileWriter(CSV_LOCATION); 
-				writer.append("instId");
-				writer.append("\n");
-				 
-				List<InstrumentEntity> instList = new ArrayList<InstrumentEntity>(); 
-				instList = instrumentServiceImpl.fetchInstrumentList();
 				
-				List<InstrumentCSV> instrumentCSVList = new ArrayList<InstrumentCSV>();
-				
-				for(InstrumentEntity instEnt: instList) {
-					InstrumentCSV instrumentCSV = new InstrumentCSV();
-					instrumentCSV.setInstId(instEnt.getInstId());
-					instrumentCSVList.add(instrumentCSV);
-				}
-
-				ColumnPositionMappingStrategy<InstrumentCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstrumentCSV>(); 
-				mappingStrategy.setType(InstrumentCSV.class); 
-
-				String[] columns = new String[]{ "instId"}; 
-				mappingStrategy.setColumnMapping(columns); 
-				
-				StatefulBeanToCsvBuilder<InstrumentCSV> builder = new StatefulBeanToCsvBuilder<InstrumentCSV>(writer); 
-				StatefulBeanToCsv<InstrumentCSV> beanWriter = builder.withMappingStrategy(mappingStrategy).build(); 
-
-				beanWriter.write(instrumentCSVList); 
-
-				writer.close(); 
-			} 
-			catch (Exception e) { 
-				e.printStackTrace(); 
-			} 
 		}	
 } 
 

@@ -2,14 +2,11 @@ package com.nilesh.InstrumentTrackerSystem.repository;
 
 import java.io.File;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
 
 @Repository
@@ -24,32 +21,38 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 	
 	@Override
 	public List<InstrumentEntity> findAll() {
-		Query theQuery = entityManager.createNativeQuery("select instLoggerId from instLogger");
+		Query theQuery = entityManager.createNativeQuery("select instId from instrument");
 		
 		@SuppressWarnings("unchecked")
 		List<InstrumentEntity> theInstrument = (List<InstrumentEntity>)theQuery.getResultList();
-		System.out.println(theInstrument);
 		return theInstrument;
 	}
 
 	@Override
-	public InstrumentEntity findById(String empId) {
-		// TODO Auto-generated method stub
-		return null;
+	public InstrumentEntity findById(String theInstId) {
+		InstrumentEntity instrument = new InstrumentEntity();
+
+		Query theQuery = entityManager.createNativeQuery("select instId from instrument where instId =?1");
+		theQuery.setParameter(1, theInstId);
+
+		Object dInstId = (Object)theQuery.getSingleResult();
+		String result = dInstId.toString();
+		instrument.setInstId(result);
+		return instrument;
 	}
 
 	@Override
 	public void save(InstrumentEntity theInstrument) {
-		
 
 		InstrumentEntity dbInstrument = entityManager.merge(theInstrument);
 		theInstrument.setInstId(dbInstrument.getInstId());
 	}
 
 	@Override
-	public void deleteById(String empId) {
-		// TODO Auto-generated method stub
-
+	public void deleteById(String theInstId) {
+		Query theQuery = entityManager.createNativeQuery("delete from instrument where instId=?1");
+		theQuery.setParameter(1, theInstId);
+		theQuery.executeUpdate();
 	}
 
 	public List<InstrumentEntity> fetchInstrumentList() {

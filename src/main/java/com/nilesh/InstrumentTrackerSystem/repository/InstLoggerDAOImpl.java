@@ -1,23 +1,13 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
-
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.swing.JOptionPane;
-
-//import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
-//import com.nilesh.InstrumentTrackerSystem.entity.EmployeeEntity;
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 
 @Repository
@@ -32,19 +22,24 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	
 	@Override
 	public List<InstLoggerEntity> findAll() {
-		// TODO Auto-generated method stub
 		Query theQuery = entityManager.createNativeQuery("select instLoggerId from instLogger");
 		
 		@SuppressWarnings("unchecked")
 		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)theQuery.getResultList();
-		System.out.println(instLogger);
 		return instLogger;
 	}
 
 	@Override
-	public InstLoggerEntity findById(Long instLoggerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public InstLoggerEntity findById(Long theInstLoggerId) {
+		InstLoggerEntity instLoggerEntity = new InstLoggerEntity();
+
+		Query theQuery = entityManager.createNativeQuery("select instLoggerId from instLogger where instLoggerId =?1");
+		theQuery.setParameter(1, theInstLoggerId);
+
+		Object dInstLoggerId = (Object)theQuery.getSingleResult();
+		String result = dInstLoggerId.toString();
+		instLoggerEntity.setInstId(result);
+		return instLoggerEntity;
 	}
 
 	@Override
@@ -55,54 +50,16 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public void deleteById(Long instLoggerId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List<InstLoggerEntity> findByPair(String empId, String instId) {
-		
-		Query theQuery = entityManager.createNativeQuery("select * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
-		theQuery.setParameter(1, empId);
-		theQuery.setParameter(2, instId);
-		
-		@SuppressWarnings("unchecked")
-		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)theQuery.getResultList();
-		System.out.println(instLogger.get(0).getInstLoggerId());
-		
-		return instLogger;
-	}
-
-	@Override
-	public List<InstLoggerEntity> findByPair(Calendar startTime, Calendar inTime, Calendar outTime, Calendar timeNow, String empId, String instId) {
-		// TODO Auto-generated method stub
-		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where empId = ?1 and instId = ?2 and outTime = (Select Max(outTime) from instLogger where instId = ?2 group by empId,instId)",InstLoggerEntity.class);
-		theQuery.setParameter(1, empId);
-		theQuery.setParameter(2, instId);
-		
-		@SuppressWarnings("unchecked")
-		List<InstLoggerEntity> instLoggerList = (List<InstLoggerEntity>)theQuery.getResultList();
-	
-		if (!instLoggerList.isEmpty()) {
-	
-			System.out.println(instLoggerList.get(0).getInstLoggerId());
-
-		}
-		InstLoggerEntity instLogger = new InstLoggerEntity();
-		instLogger.setEmpId(empId);
-
-		instLogger.setInstId(instId);
-		instLogger.setInTime(inTime);
-		instLogger.setOutTime(outTime);
-		save(instLogger);
-		return instLoggerList;
+	public void deleteById(Long theInstLoggerId) {
+		Query theQuery = entityManager.createNativeQuery("delete from instLogger where instLoggerId=?1");
+		theQuery.setParameter(1, theInstLoggerId);
+		theQuery.executeUpdate();
 
 	}
 
 	@Override
 	public List<InstLoggerEntity>  insertToTable(Calendar punchingTime, String empId, String instId) {
-		// TODO Auto-generated method stub
+		
 		if(empId.isBlank()||instId.isBlank()) {
 			return null;
 		}
@@ -138,11 +95,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		// TODO Auto-generated catch block
 		System.out.println("NoResultException");
 	}
-//	}catch(Exception e) {
-//		System.out.println("Exception caught");
-//	}
-	
-	
+
 	try {
 		if((instLoggerEntity==null)||(instLoggerEntity.getInTime() != null && instLoggerEntity.getOutTime() != null)) {//and this//if ()
 			InstLoggerEntity instLogger = new InstLoggerEntity();
@@ -161,17 +114,6 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 			updateQuery.setParameter(2, instLoggerId);
 			updateQuery.executeUpdate();
 		}
-	
-
-//	    if(e.getCause() != null && e.getCause().getCause() instanceof SQLIntegrityConstraintViolationException) {
-//	        SQLIntegrityConstraintViolationException sql_violation_exception = (SQLIntegrityConstraintViolationException) e.getCause().getCause() ;
-//	        System.out.println(sql_violation_exception.getMessage());
-//	    }
-//	    if(e.getCause() != null && e.getCause().getCause() instanceof UnexpectedRollbackException) {
-//	    	UnexpectedRollbackException unexpectedRollbackException = (UnexpectedRollbackException) e.getCause().getCause();
-//	    	System.out.println(unexpectedRollbackException.getMessage());
-//	    }
-	
 	}catch(Exception e) {
 		System.out.println("Something went wrong");
 		return null;
@@ -181,29 +123,10 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 	@Override
 	public List<InstLoggerEntity> fetchListFor() {
-		// TODO Auto-generated method stub
-
 		
 		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId from instLogger where inTime >= CURDATE()\n" + 
 				"  AND inTime < CURDATE() + INTERVAL 1 DAY",InstLoggerEntity.class);
 
-//		Calendar todayInTime = Calendar.getInstance();//new GregorianCalendar();
-//		// reset hour, minutes, seconds and millis
-//		todayInTime.set(Calendar.HOUR_OF_DAY, 0);
-//		todayInTime.set(Calendar.MINUTE, 0);
-//		todayInTime.set(Calendar.SECOND, 0);
-//		todayInTime.set(Calendar.MILLISECOND, 0);
-//		
-//		Calendar nextDayInTime = (Calendar)todayInTime.clone();
-//
-//		nextDayInTime.add(Calendar.DAY_OF_MONTH, 1);
-//		System.out.println(todayInTime.getTime());
-//		System.out.println(nextDayInTime.getTime());
-//		
-//		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId,entryStatus from instLogger where inTime BETWEEN ?1 AND ?2",InstLoggerEntity.class);
-//		todaysList.setParameter(1, todayInTime);
-//		todaysList.setParameter(2, nextDayInTime);
-		
 		@SuppressWarnings("unchecked")
 		List<InstLoggerEntity> instLogger = (List<InstLoggerEntity>)todaysList.getResultList();
 
@@ -212,20 +135,8 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public List<InstLoggerEntity> fetchListFor(Calendar requestDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<InstLoggerEntity> fetchListFor(Calendar fromDate, Calendar toDate) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<InstLoggerEntity> unReturnedItems(Calendar requestDate) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
