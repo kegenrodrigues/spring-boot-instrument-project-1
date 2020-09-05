@@ -1,13 +1,17 @@
 package com.nilesh.InstrumentTrackerSystem.repository;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import com.nilesh.InstrumentTrackerSystem.entity.InstLoggerEntity;
 
 @Repository
@@ -37,8 +41,8 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 		theQuery.setParameter(1, theInstLoggerId);
 
 		Object dInstLoggerId = (Object)theQuery.getSingleResult();
-		String result = dInstLoggerId.toString();
-		instLoggerEntity.setInstId(result);
+		Long result =(Long)dInstLoggerId;
+		instLoggerEntity.setInstLoggerId(result);
 		return instLoggerEntity;
 	}
 
@@ -58,9 +62,10 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	}
 
 	@Override
-	public List<InstLoggerEntity>  insertToTable(Calendar punchingTime, String empId, String instId) {
+	public List<InstLoggerEntity>  insertToTable(Calendar punchingTime, String empId, String instId,String modelNo, String iP) {
 		
-		if(empId.isBlank()||instId.isBlank()) {
+		Date currentDate = new Date(new java.util.Date().getTime());
+		if(empId.isBlank()||instId.isBlank()||modelNo.isBlank()||iP.isBlank()) {
 			return null;
 		}
 		List<InstLoggerEntity> theInstLoggerEntityList = new ArrayList<InstLoggerEntity>();
@@ -72,9 +77,11 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 		
 		//Method 1
-		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where instLoggerId = (Select MAX(instLoggerId) from instLogger where empId = ?1 and instId = ?2 GROUP BY empId,instId)",InstLoggerEntity.class);
+		Query theQuery = entityManager.createNativeQuery("SELECT * from instLogger where instLoggerId = (Select MAX(instLoggerId) from instLogger where empId = ?1 and instId = ?2 and modelNo = ?3 and iP = ?4 GROUP BY empId,instId,modelNo,iP)",InstLoggerEntity.class);
 		theQuery.setParameter(1, empId);
 		theQuery.setParameter(2, instId);
+		theQuery.setParameter(3, modelNo);
+		theQuery.setParameter(4, iP);
 		instLoggerEntity = (InstLoggerEntity) theQuery.getSingleResult();
 		
 		//Method 2
@@ -103,6 +110,9 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 			instLogger.setInstId(instId);
 			instLogger.setInTime(punchingTime);
 			instLogger.setOutTime(null);
+			instLogger.setCurrentDate(currentDate);
+			instLogger.setModelNo(modelNo);
+			instLogger.setiP(iP);
 			save(instLogger);//Exception can occur here
 			theInstLoggerEntityList.add(instLogger);
 		}
@@ -124,7 +134,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 	@Override
 	public List<InstLoggerEntity> fetchListFor() {
 		
-		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId from instLogger where inTime >= CURDATE()\n" + 
+		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,outTime,empId,instId,currentDate,modelNo,iP from instLogger where inTime >= CURDATE()\n" + 
 				"  AND inTime < CURDATE() + INTERVAL 1 DAY",InstLoggerEntity.class);
 
 		@SuppressWarnings("unchecked")
@@ -136,7 +146,7 @@ public class InstLoggerDAOImpl implements InstLoggerDAO {
 
 	@Override
 	public List<InstLoggerEntity> unReturnedItems() {
-		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,empId,instId from instLogger where inTime >= CURDATE()\n" + 
+		Query todaysList = entityManager.createNativeQuery("SELECT instLoggerId,inTime,empId,instId,currentDate,modelNo,iP from instLogger where inTime >= CURDATE()\n" + 
 				"  AND inTime < CURDATE() + INTERVAL 1 DAY and outTime IS NULL",InstLoggerEntity.class);
 
 		@SuppressWarnings("unchecked")

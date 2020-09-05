@@ -44,9 +44,9 @@ public class InstLoggerServiceImpl implements InstLoggerService {
 
 	@Override
 	@Transactional
-	public List<InstLoggerEntity> insertToTable(Calendar punchingTime, String empId, String instId) {
+	public List<InstLoggerEntity> insertToTable(Calendar punchingTime, String empId, String instId, String modelNo, String iP) {
 		// TODO Auto-generated method stub
-		return theInstLoggerDAOImpl.insertToTable(punchingTime, empId, instId);
+		return theInstLoggerDAOImpl.insertToTable(punchingTime, empId, instId, modelNo, iP);
 	}
 
 	@Override

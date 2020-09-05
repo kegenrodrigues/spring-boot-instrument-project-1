@@ -10,7 +10,28 @@ public class InstLoggerCSV {
 	private String instId;
 	private String inTime;
 	private String outTime;
+	private String currentDate;
+	private String modelNo;
+	private String iP;
 	
+	public String getCurrentDate() {
+		return currentDate;
+	}
+	public void setCurrentDate(String currentDate) {
+		this.currentDate = currentDate;
+	}
+	public String getModelNo() {
+		return modelNo;
+	}
+	public void setModelNo(String modelNo) {
+		this.modelNo = modelNo;
+	}
+	public String getiP() {
+		return iP;
+	}
+	public void setiP(String iP) {
+		this.iP = iP;
+	}
 	public Long getInstLoggerId() {
 		return instLoggerId;
 	}
@@ -42,6 +63,10 @@ public class InstLoggerCSV {
 		this.outTime = outTime;
 	}
 
+	public InstLoggerCSV(){	
+		
+	}
+	
 	public InstLoggerCSV(Long instLoggerId, String empId, String instId, String inTime, String outTime) {
 		super();
 		this.instLoggerId = instLoggerId;
@@ -51,6 +76,17 @@ public class InstLoggerCSV {
 		this.outTime = outTime;
 	}
 	
-	public InstLoggerCSV(){	
+	public InstLoggerCSV(Long instLoggerId, String empId, String instId, String inTime, String outTime,
+			String currentDate, String modelNo, String iP) {
+		super();
+		this.instLoggerId = instLoggerId;
+		this.empId = empId;
+		this.instId = instId;
+		this.inTime = inTime;
+		this.outTime = outTime;
+		this.currentDate = currentDate;
+		this.modelNo = modelNo;
+		this.iP = iP;
 	}
+	
 }

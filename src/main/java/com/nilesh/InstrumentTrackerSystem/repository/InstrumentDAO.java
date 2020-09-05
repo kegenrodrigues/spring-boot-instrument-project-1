@@ -6,7 +6,7 @@ import com.nilesh.InstrumentTrackerSystem.entity.InstrumentEntity;
 
 public interface InstrumentDAO {
 	public List<InstrumentEntity> findAll();
-	public InstrumentEntity findById(String empId);
+	public InstrumentEntity findById(String instId);
 	public void save(InstrumentEntity theInstrument);
-	public void deleteById(String empId);
+	public void deleteById(String instId);
 }

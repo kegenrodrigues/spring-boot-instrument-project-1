@@ -40,7 +40,7 @@ public class CSVFromBean {
 		String CSV_LOCATION = PathHelperGuide.provideFullPath(storePath);
 
 			FileWriter writer = new FileWriter(CSV_LOCATION); 
-			writer.append("instLoggerId,inTime,outTime,empId,instId");
+			writer.append("instLoggerId,inTime,outTime,empId,instId,currentDate,modelNo,iP");
 			writer.append("\n");
 			
 			List<InstLoggerEntity> instLogList = new ArrayList<InstLoggerEntity>(); 
@@ -59,13 +59,15 @@ public class CSVFromBean {
 				}else {
 					instLogCSV.setOutTime(instLogger.getOutTime().getTime().toGMTString());
 				}
+				instLogCSV.setCurrentDate(instLogger.getCurrentDate().toString());
+				instLogCSV.setModelNo(instLogger.getModelNo());
+				instLogCSV.setiP(instLogger.getiP());
 				instLogCSVList.add(instLogCSV);
 			}
-
-			ColumnPositionMappingStrategy<InstLoggerCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstLoggerCSV>(); 
+						ColumnPositionMappingStrategy<InstLoggerCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstLoggerCSV>(); 
 			mappingStrategy.setType(InstLoggerCSV.class); 
  
-			String[] columns = new String[]{ "instLoggerId","inTime","outTime","empId","instId"}; 
+			String[] columns = new String[]{ "instLoggerId","inTime","outTime","empId","instId","currentDate","modelNo","iP"}; 
 			mappingStrategy.setColumnMapping(columns); 
 			 
 			StatefulBeanToCsvBuilder<InstLoggerCSV> builder = new StatefulBeanToCsvBuilder<InstLoggerCSV>(writer); 
@@ -112,7 +114,7 @@ public class CSVFromBean {
 			String CSV_LOCATION = PathHelperGuide.provideFullPath(storePath);
 
 			FileWriter writer = new FileWriter(CSV_LOCATION); 
-			writer.append("instId");
+			writer.append("instId,modelNo,iP");
 			writer.append("\n");
 			 
 			List<InstrumentEntity> instList = new ArrayList<InstrumentEntity>(); 
@@ -123,13 +125,15 @@ public class CSVFromBean {
 			for(InstrumentEntity instEnt: instList) {
 				InstrumentCSV instrumentCSV = new InstrumentCSV();
 				instrumentCSV.setInstId(instEnt.getInstId());
+				instrumentCSV.setModelNo(instEnt.getModelNo());
+				instrumentCSV.setiP(instEnt.getiP());
 				instrumentCSVList.add(instrumentCSV);
 			}
 
 			ColumnPositionMappingStrategy<InstrumentCSV> mappingStrategy= new ColumnPositionMappingStrategy<InstrumentCSV>(); 
 			mappingStrategy.setType(InstrumentCSV.class); 
 
-			String[] columns = new String[]{ "instId"}; 
+			String[] columns = new String[]{ "instId","modelNo","iP"}; 
 			mappingStrategy.setColumnMapping(columns); 
 			
 			StatefulBeanToCsvBuilder<InstrumentCSV> builder = new StatefulBeanToCsvBuilder<InstrumentCSV>(writer); 

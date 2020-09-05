@@ -21,23 +21,34 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 	
 	@Override
 	public List<InstrumentEntity> findAll() {
-		Query theQuery = entityManager.createNativeQuery("select instId from instrument");
+		Query theQuery = entityManager.createNativeQuery("select instId,modelNo,iP from instrument");
 		
 		@SuppressWarnings("unchecked")
 		List<InstrumentEntity> theInstrument = (List<InstrumentEntity>)theQuery.getResultList();
 		return theInstrument;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public InstrumentEntity findById(String theInstId) {
 		InstrumentEntity instrument = new InstrumentEntity();
 
-		Query theQuery = entityManager.createNativeQuery("select instId from instrument where instId =?1");
+		Query theQuery = entityManager.createNativeQuery("select instId,modelNo,iP from instrument where instId =?1");
 		theQuery.setParameter(1, theInstId);
 
-		Object dInstId = (Object)theQuery.getSingleResult();
-		String result = dInstId.toString();
-		instrument.setInstId(result);
+//		Object dInstId = (Object)theQuery.getSingleResult();
+//		String result = dInstId.toString();
+//		instrument.setInstId(result);
+		
+		
+		List<InstrumentEntity> instList = (List<InstrumentEntity>)theQuery.getResultList();	
+		if(!instList.isEmpty()) {
+			InstrumentEntity dbInstrument = (InstrumentEntity)instList.get(0);
+			instrument.setInstId(dbInstrument.getInstId());
+			instrument.setModelNo(dbInstrument.getModelNo());
+			instrument.setiP(dbInstrument.getiP());
+		}
+		
 		return instrument;
 	}
 
@@ -46,6 +57,8 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 
 		InstrumentEntity dbInstrument = entityManager.merge(theInstrument);
 		theInstrument.setInstId(dbInstrument.getInstId());
+		theInstrument.setModelNo(dbInstrument.getModelNo());
+		theInstrument.setiP(dbInstrument.getiP());
 	}
 
 	@Override
@@ -56,7 +69,7 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 	}
 
 	public List<InstrumentEntity> fetchInstrumentList() {
-		Query theQuery = entityManager.createNativeQuery("SELECT instId from instrument",InstrumentEntity.class);
+		Query theQuery = entityManager.createNativeQuery("SELECT instId,modelNo,iP from instrument",InstrumentEntity.class);
 		@SuppressWarnings("unchecked")
 		List<InstrumentEntity> instList = (List<InstrumentEntity>)theQuery.getResultList();		      
 		return instList;
@@ -64,7 +77,9 @@ public class InstrumentDAOImpl implements InstrumentDAO {
 
 	@Transactional
 	public void insertFromCSV(File file) {
-		Query theQuery = entityManager.createNativeQuery("LOAD DATA LOCAL INFILE :fileName INTO TABLE instrument");
+		//Use the commented line if 1st line in CSV to upload in database contains headers
+		//Query theQuery = entityManager.createNativeQuery("LOAD DATA LOCAL INFILE :fileName INTO TABLE instrument FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\r\n' IGNORE 1 LINES (instId,modelNo,iP)");
+		Query theQuery = entityManager.createNativeQuery("LOAD DATA LOCAL INFILE :fileName INTO TABLE instrument FIELDS TERMINATED BY ',' ENCLOSED BY '\"' LINES TERMINATED BY '\r\n' (instId,modelNo,iP)");
 		theQuery.setParameter("fileName", file.getPath());
 		theQuery.executeUpdate();
 	}

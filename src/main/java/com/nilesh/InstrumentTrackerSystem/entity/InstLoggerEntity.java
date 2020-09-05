@@ -1,5 +1,6 @@
 package com.nilesh.InstrumentTrackerSystem.entity;
 
+import java.sql.Date;
 import java.util.Calendar;
 
 import javax.persistence.Column;
@@ -31,6 +32,33 @@ public class InstLoggerEntity {
 	@Column(name = "outTime")
 	private Calendar outTime;
 	 
+	@Column(name = "currentDate")
+	private Date currentDate;
+	
+	@Column(name = "modelNo")
+	private String modelNo;
+	
+	@Column(name = "iP")
+	private String iP;
+	
+	public Date getCurrentDate() {
+		return currentDate;
+	}
+	public void setCurrentDate(Date currentDate) {
+		this.currentDate = currentDate;
+	}
+	public String getModelNo() {
+		return modelNo;
+	}
+	public void setModelNo(String modelNo) {
+		this.modelNo = modelNo;
+	}
+	public String getiP() {
+		return iP;
+	}
+	public void setiP(String iP) {
+		this.iP = iP;
+	}
 	public Long getInstLoggerId() {
 		return instLoggerId;
 	}
@@ -61,6 +89,11 @@ public class InstLoggerEntity {
 	public void setInstId(String instId) {
 		this.instId = instId;
 	}
+	
+	public InstLoggerEntity() {
+		
+	}
+	
 	public InstLoggerEntity(Long instLoggerId, String empId, String instId) {
 		super();
 		this.instLoggerId = instLoggerId;
@@ -75,8 +108,19 @@ public class InstLoggerEntity {
 		this.inTime = inTime;
 		this.outTime = outTime;
 	}
-	public InstLoggerEntity() {
-	
+
+	public InstLoggerEntity(Long instLoggerId, String empId, String instId, Calendar inTime, Calendar outTime,
+			Date currentDate, String modelNo, String iP) {
+		super();
+		this.instLoggerId = instLoggerId;
+		this.empId = empId;
+		this.instId = instId;
+		this.inTime = inTime;
+		this.outTime = outTime;
+		this.currentDate = currentDate;
+		this.modelNo = modelNo;
+		this.iP = iP;
 	}
 		
+	
 }

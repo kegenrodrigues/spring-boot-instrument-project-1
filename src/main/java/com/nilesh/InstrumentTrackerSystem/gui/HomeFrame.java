@@ -40,8 +40,14 @@ public class HomeFrame extends JFrame implements ActionListener {
 	Container container = getContentPane();
 	JLabel employeeId = new JLabel("EMPLOYEE ID");
 	JLabel instrumentId = new JLabel("INSTRUMENT ID");
+	JLabel modelNo = new JLabel("Model No");
+	JLabel iP = new JLabel("IP");
+	
 	JTextField empIdField = new JTextField();
 	JTextField instIdField = new JTextField();
+	JTextField modelNoField = new JTextField();
+	JTextField ipField = new JTextField();
+	
 	JButton punchButton = new JButton("PUNCH");
 	JButton downloadButton = new JButton("DOWNLOAD");
 	TextArea textArea = new TextArea();
@@ -64,10 +70,17 @@ public class HomeFrame extends JFrame implements ActionListener {
 	}
 
 	public void setLocationAndSize() {
-		employeeId.setBounds(50, 150, 100, 30);
-		instrumentId.setBounds(50, 220, 100, 30);
-		empIdField.setBounds(150, 150, 150, 30);
-		instIdField.setBounds(150, 220, 150, 30);
+		employeeId.setBounds(50, 20, 100, 30);
+		instrumentId.setBounds(50, 70, 100, 30);
+		modelNo.setBounds(50, 120, 100, 30);
+		iP.setBounds(50, 170, 100, 30);
+		
+		empIdField.setBounds(150, 20, 150, 30);
+		instIdField.setBounds(150, 70, 150, 30);
+		modelNoField.setBounds(150, 120, 100, 30);
+		ipField.setBounds(150, 170, 100, 30);
+		
+		
 		punchButton.setBounds(50, 300, 120, 30);
 		downloadButton.setBounds(200, 300, 120, 30);
 		uploadEmployees.setBounds(50, 350, 120, 30);
@@ -81,13 +94,17 @@ public class HomeFrame extends JFrame implements ActionListener {
 		container.add(instrumentId);
 		container.add(empIdField);
 		container.add(instIdField);
+		container.add(modelNo);
+		container.add(iP);
+		container.add(modelNoField);
+		container.add(ipField);
+		
 		container.add(punchButton);
 		container.add(downloadButton);
 		container.add(uploadEmployees);
 		container.add(uploadInstruments);
 		container.add(fetchEmployees);
-		container.add(fetchInstruments);
-		
+		container.add(fetchInstruments);		
 	}
 
 	public void addActionEvent() {
@@ -105,6 +122,9 @@ public class HomeFrame extends JFrame implements ActionListener {
 		
 		String emploId = "";
 		String instruId = "";
+		String modelNo = "";
+		String iP = "";
+		
 		String path = "";
 		List<InstLoggerEntity> instLogList = null;
 		
@@ -115,11 +135,12 @@ public class HomeFrame extends JFrame implements ActionListener {
 
 			emploId = empIdField.getText();
 			instruId = instIdField.getText();
-
+			modelNo = modelNoField.getText();
+			iP = ipField.getText();
 		
-			instLogList = theInstLoggerServiceImpl.insertToTable(timeNow, emploId, instruId);
+			instLogList = theInstLoggerServiceImpl.insertToTable(timeNow, emploId, instruId, modelNo,iP);
 			
-			if(emploId.isEmpty() || instruId.isEmpty()) {
+			if(emploId.isEmpty() || instruId.isEmpty()||modelNo.isEmpty()||iP.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "Employee and/or Instrument ID fields cannot be blank", "Invalid Input",
 						JOptionPane.ERROR_MESSAGE);
 			}else if (instLogList == null) {
@@ -131,7 +152,8 @@ public class HomeFrame extends JFrame implements ActionListener {
 			}
 			empIdField.setText("");
 			instIdField.setText("");
-			
+			modelNoField.setText("");
+			ipField.setText("");
 		}
 		
 		if (e.getSource() == downloadButton) {
