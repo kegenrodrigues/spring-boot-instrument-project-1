@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @SuppressWarnings("serial")
@@ -30,6 +31,12 @@ public class LoginFrame extends JFrame implements ActionListener {
     JButton resetButton = new JButton("RESET");
     JCheckBox showPassword = new JCheckBox("Show Password");
 
+	@Value("${app.username}")
+	String appUsername;
+	
+	@Value("${app.password}")
+	String appPassword;
+	
     LoginFrame() {
         setLayoutManager();
         setLocationAndSize();
@@ -81,7 +88,7 @@ public class LoginFrame extends JFrame implements ActionListener {
             
             userText = userTextField.getText();
             pwdText = passwordField.getText();
-            if (userText.equalsIgnoreCase("") && pwdText.equalsIgnoreCase("")) {
+            if (userText.equalsIgnoreCase(appUsername) && pwdText.equalsIgnoreCase(appPassword)) {
             	dispose();
             	mainPanel.go();
             } else {
